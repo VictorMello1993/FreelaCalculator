@@ -20,6 +20,7 @@
         "endOfLine": "auto"
       }
     ],
-    "no-useless-constructor": "off"
+    "no-useless-constructor": "off",
+    "no-empty-function": "off"
   }
 }

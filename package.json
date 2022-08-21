@@ -1,0 +1,33 @@
+{
+  "name": "FreelaCalculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:VictorMello1993/FreelaCalculator.git",
+  "author": "Victor Mello <victor.mello@al.infnet.edu.br>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev -r dotenv/config ./src/server.ts"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-config-standard-with-typescript": "^22.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "prettier": "^2.7.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "*"
+  },
+  "dependencies": {
+    "class-validator": "^0.13.2",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "inversify": "^6.0.1"
+  }
+}

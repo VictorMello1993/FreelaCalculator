@@ -1,5 +1,5 @@
-import { User } from "../../core/entities/User";
+// import { User } from "../../core/entities/User";
 
-export class Database {
-  users: Array<User>;
-}
+// export class Database {
+//   users: Array<User>;
+// }

@@ -3,5 +3,5 @@ import { User } from "../entities/User";
 
 export interface IUsersRepository {
   create(data: CreateUserInputModel): User;
-  findByEmail(email: string): User;
+  // findByEmail(email: string): User;
 }

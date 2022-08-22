@@ -1,26 +1,26 @@
 import { inject } from "inversify";
-import { BaseHttpController, controller, httpPost, interfaces, requestBody } from "inversify-express-utils";
-import { container } from "../../container";
-import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel";
-import { IUsersRepository } from "../../core/repositories/IUsersRepository";
-import { CreateUserUseCase } from "../../core/useCases/users/CreateUserUseCase";
+import { BaseHttpController, controller, httpGet, interfaces } from "inversify-express-utils";
+import { CreateUserInterface } from "../../core/useCases/users/createUser/CreateUserInterface";
 import { TYPES } from "../../types";
 
 @controller("/users")
 export class UsersController extends BaseHttpController implements interfaces.Controller {
-  constructor(@inject(TYPES.IUsersRepository) createUserUseCase: IUsersRepository) {
+  private _usersService: CreateUserInterface;
+
+  constructor(
+    @inject(TYPES.CreateUserInterface)
+    createUserUseCase: CreateUserInterface,
+  ) {
     super();
+    this._usersService = createUserUseCase;
   }
 
-  @httpPost("/")
-  createUser(@requestBody() body: CreateUserInputModel): interfaces.IHttpActionResult {
-    console.log(body);
+  @httpGet("/")
+  async handle(): Promise<interfaces.IHttpActionResult> {
+    console.log("teste");
 
-    const createUserUseCase = container.resolve(CreateUserUseCase);
-    const result = createUserUseCase.execute(body);
-    return this.json({
-      message: "success",
-      data: { result },
-    });
+    const result: any[] = this._usersService.execute();
+
+    return this.json(result);
   }
 }

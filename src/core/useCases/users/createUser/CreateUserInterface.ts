@@ -1,6 +1,7 @@
-// import { User } from "../../../entities/User";
+import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
+import { User } from "../../../entities/User";
 
 export interface CreateUserInterface {
-  execute(): any[];
+  execute(data: CreateUserInputModel): User[];
   // findByEmail(email: string): User;
 }

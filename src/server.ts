@@ -1,6 +1,29 @@
 import "reflect-metadata";
-import { app } from "./app";
+import express from "express";
+import { InversifyExpressServer } from "inversify-express-utils";
+import "./presentation/controllers/app.controller";
+import "./presentation/controllers/users.controller";
+import { container } from "./container";
 
-const port = process.env.PORT;
+export class App {
+  constructor() {
+    this.createService();
+  }
 
-app.listen(port, () => console.log(`Server is running at ${port}`));
+  createService(): void {
+    const port = process.env.PORT;
+    const url = process.env.API_URL;
+
+    const server: InversifyExpressServer = new InversifyExpressServer(container);
+
+    server.setConfig((app) => {
+      app.use(express.json());
+    });
+
+    const app = server.build();
+
+    app.listen(port, () => console.log(`Server is running at ${url}${port}`));
+  }
+}
+
+export default new App();

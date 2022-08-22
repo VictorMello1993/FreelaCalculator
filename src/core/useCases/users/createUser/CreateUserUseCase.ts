@@ -1,9 +1,11 @@
 import { injectable } from "inversify";
+import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
+import { User } from "../../../entities/User";
 import { CreateUserInterface } from "./CreateUserInterface";
 
 @injectable()
 export class CreateUserUseCase implements CreateUserInterface {
-  execute(): any[] {
+  execute(data: CreateUserInputModel): User[] {
     return [
       {
         id: "1",

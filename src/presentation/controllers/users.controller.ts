@@ -1,5 +1,7 @@
 import { inject } from "inversify";
-import { BaseHttpController, controller, httpGet, interfaces } from "inversify-express-utils";
+import { BaseHttpController, controller, httpPost, interfaces, requestBody } from "inversify-express-utils";
+import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel";
+import { User } from "../../core/entities/User";
 import { CreateUserInterface } from "../../core/useCases/users/createUser/CreateUserInterface";
 import { TYPES } from "../../types";
 
@@ -15,11 +17,13 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     this._usersService = createUserUseCase;
   }
 
-  @httpGet("/")
-  async handle(): Promise<interfaces.IHttpActionResult> {
-    console.log("teste");
-
-    const result: any[] = this._usersService.execute();
+  @httpPost("/")
+  async create(
+    @requestBody()
+    body: CreateUserInputModel,
+  ): Promise<interfaces.IHttpActionResult> {
+    console.log(body);
+    const result: User[] = this._usersService.execute(body);
 
     return this.json(result);
   }

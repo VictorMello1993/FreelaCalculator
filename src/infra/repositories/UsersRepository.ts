@@ -1,26 +1,24 @@
-// import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel";
-// import { User } from "../../core/entities/User";
-// import { IUsersRepository } from "../../core/repositories/IUsersRepository";
-// import { Database } from "../database/db";
+import { injectable } from "inversify";
+import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel";
+import { User } from "../../core/entities/User";
+import { IUsersRepository } from "../../core/repositories/IUsersRepository";
+import { users } from "../database/db";
 
-// export class UsersRepository implements IUsersRepository {
-//   constructor(private db: Database) {
-//     db.users = [];
-//   }
+@injectable()
+export class UsersRepository implements IUsersRepository {
+  create(data: CreateUserInputModel): User {
+    const newUser = new User();
 
-//   create(data: CreateUserInputModel): User {
-//     const newUser = new User();
+    newUser.name = data.name;
+    newUser.email = data.email;
+    newUser.password = data.password;
 
-//     newUser.name = data.name;
-//     newUser.email = data.email;
-//     newUser.password = data.password;
+    users.push(newUser);
 
-//     this.db.users.push(newUser);
+    return newUser;
+  }
 
-//     return newUser;
-//   }
-
-//   findByEmail(email: string): User {
-//     return this.db.users.find((user) => user.email === email);
-//   }
-// }
+  findByEmail(email: string): User {
+    return users.find((user) => user.email === email);
+  }
+}

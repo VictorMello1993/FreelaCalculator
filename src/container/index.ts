@@ -1,8 +1,10 @@
 import { Container } from "inversify";
-import { CreateUserInterface } from "../core/useCases/users/createUser/CreateUserInterface";
+import { IUsersRepository } from "../core/repositories/IUsersRepository";
 import { CreateUserUseCase } from "../core/useCases/users/createUser/CreateUserUseCase";
+import { UsersRepository } from "../infra/repositories/UsersRepository";
 import { TYPES } from "../types";
 
 export const container = new Container();
 
-container.bind<CreateUserInterface>(TYPES.CreateUserInterface).to(CreateUserUseCase);
+container.bind<IUsersRepository>(TYPES.IUsersRepository).to(UsersRepository);
+container.bind<CreateUserUseCase>(TYPES.CreateUserUseCase).to(CreateUserUseCase);

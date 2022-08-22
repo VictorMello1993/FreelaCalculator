@@ -1,3 +1,4 @@
 export const TYPES = {
-  CreateUserInterface: Symbol.for("CreateUserInterface"),
+  IUsersRepository: Symbol.for("IUsersRepository"),
+  CreateUserUseCase: Symbol.for("CreateUserUseCase"),
 };

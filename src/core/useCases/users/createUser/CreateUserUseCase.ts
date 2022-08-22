@@ -1,13 +1,19 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import { users } from "../../../../infra/database/db";
 import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
-import { CreateUserInterface } from "./CreateUserInterface";
 import { v4 as uuid } from "uuid";
+import { TYPES } from "../../../../types";
+import { IUsersRepository } from "../../../repositories/IUsersRepository";
 
 @injectable()
-export class CreateUserUseCase implements CreateUserInterface {
+export class CreateUserUseCase {
+  constructor(
+    @inject(TYPES.IUsersRepository)
+    private usersRepository: IUsersRepository,
+  ) { }
+
   execute(data: CreateUserInputModel) {
-    const user = users.find((user) => user.email === data.email);
+    const user = this.usersRepository.findByEmail(data.email);
 
     if (user) {
       throw new Error("User already exists");

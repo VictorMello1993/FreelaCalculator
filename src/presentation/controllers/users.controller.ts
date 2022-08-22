@@ -22,9 +22,7 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     @requestBody()
     body: CreateUserInputModel,
   ): Promise<interfaces.IHttpActionResult> {
-    console.log(body);
-    const result: User[] = this._usersService.execute(body);
-
+    const result: User = this._usersService.execute(body);
     return this.json(result);
   }
 }

@@ -3,11 +3,10 @@ export class CreateUserInputModel {
   email: string;
   password: string;
   BirthDate: Date;
-  CreatedAt: Date;
-  UpdatedAt: Date;
   MonthlyBudget: number;
   ZipCode: string;
   VacationPerYear: number;
   DaysPerWeek: number;
   HoursPerDay: number;
+  ValueHour: number;
 }

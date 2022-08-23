@@ -6,12 +6,30 @@ import { users } from "../database/db";
 
 @injectable()
 export class UsersRepository implements IUsersRepository {
-  create(data: CreateUserInputModel): User {
+  create({
+    name,
+    email,
+    password,
+    BirthDate,
+    MonthlyBudget,
+    ZipCode,
+    VacationPerYear,
+    DaysPerWeek,
+    HoursPerDay,
+    ValueHour,
+  }: CreateUserInputModel): User {
     const newUser = new User();
 
-    newUser.name = data.name;
-    newUser.email = data.email;
-    newUser.password = data.password;
+    newUser.name = name;
+    newUser.email = email;
+    newUser.password = password;
+    newUser.BirthDate = BirthDate;
+    newUser.MonthlyBudget = MonthlyBudget;
+    newUser.ZipCode = ZipCode;
+    newUser.VacationPerYear = VacationPerYear;
+    newUser.DaysPerWeek = DaysPerWeek;
+    newUser.HoursPerDay = HoursPerDay;
+    newUser.ValueHour = ValueHour;
 
     users.push(newUser);
 

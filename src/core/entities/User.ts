@@ -13,10 +13,15 @@ export class User {
   VacationPerYear: number;
   DaysPerWeek: number;
   HoursPerDay: number;
+  ValueHour: number;
 
   constructor() {
     if (!this.id) {
       this.id = uuid();
+    }
+
+    if (!this.CreatedAt) {
+      this.CreatedAt = new Date();
     }
   }
 }

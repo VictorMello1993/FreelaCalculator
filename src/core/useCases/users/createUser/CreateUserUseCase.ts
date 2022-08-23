@@ -19,6 +19,21 @@ export class CreateUserUseCase {
       throw new Error("User already exists");
     }
 
+    // 1 ano (em semanas)
+    const weeksPerYear = 52;
+
+    // Removendo as semanas de férias, para obter quantas semanas tem em 1 mês
+    const weeksPerMonth = (weeksPerYear - data.VacationPerYear) / 12;
+
+    // Total de horas trabalhadas na semana
+    const weeksTotalHours = data.HoursPerDay * data.DaysPerWeek;
+
+    // Total de horas trabalhadas no mês
+    const monthlyTotalHours = weeksTotalHours * weeksPerMonth;
+
+    // Valor da hora
+    const valueHour = data.MonthlyBudget / monthlyTotalHours;
+
     const newUser = Object.assign({
       id: uuid(),
       name: data.name,
@@ -30,7 +45,7 @@ export class CreateUserUseCase {
       MonthlyBudget: data.MonthlyBudget,
       ZipCode: data.ZipCode,
       VacationPerYear: data.VacationPerYear,
-      ValueHour: data.ValueHour,
+      ValueHour: valueHour,
       DaysPerWeek: data.DaysPerWeek,
       HoursPerDay: data.HoursPerDay,
     });

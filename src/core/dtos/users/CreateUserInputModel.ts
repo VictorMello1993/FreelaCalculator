@@ -8,7 +8,6 @@ export class CreateUserInputModel {
   MonthlyBudget: number;
   ZipCode: string;
   VacationPerYear: number;
-  ValueHour: number;
   DaysPerWeek: number;
   HoursPerDay: number;
 }

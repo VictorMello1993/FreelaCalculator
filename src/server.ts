@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { InversifyExpressServer } from "inversify-express-utils";
 import "./presentation/controllers/app.controller";
 import "./presentation/controllers/users.controller";
+import "./presentation/controllers/jobs.controller";
 import { container } from "./container";
 import { AppError } from "./errors/AppError";
 

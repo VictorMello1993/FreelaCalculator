@@ -7,7 +7,7 @@ import { TYPES } from "../../types";
 
 @controller("/jobs")
 export class JobsController extends BaseHttpController implements interfaces.Controller {
-  private _createJobUseCase: CreateJobUseCase;
+  private readonly _createJobUseCase: CreateJobUseCase;
 
   constructor(
     @inject(TYPES.CreateJobUseCase)

@@ -1,31 +1,26 @@
 import { inject, injectable } from "inversify";
-import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
-import { TYPES } from "../../../../types";
-import { IUsersRepository } from "../../../repositories/IUsersRepository";
 import { AppError } from "../../../../errors/AppError";
+import { TYPES } from "../../../../types";
+import { UpdateUserInputModel } from "../../../dtos/users/UpdateUserInputModel";
+import { IUsersRepository } from "../../../repositories/IUsersRepository";
 
 @injectable()
-export class CreateUserUseCase {
+export class EditUserProfileUseCase {
+  private readonly _usersRepository: IUsersRepository;
+
   constructor(
     @inject(TYPES.IUsersRepository)
-    private usersRepository: IUsersRepository,
-  ) { }
+    usersRepository: IUsersRepository,
+  ) {
+    this._usersRepository = usersRepository;
+  }
 
-  execute({
-    name,
-    email,
-    password,
-    BirthDate,
-    MonthlyBudget,
-    ZipCode,
-    VacationPerYear,
-    DaysPerWeek,
-    HoursPerDay,
-  }: CreateUserInputModel) {
-    const user = this.usersRepository.findByEmail(email);
+  execute({ id, name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay }: UpdateUserInputModel) {
+    console.log("id", id);
+    const user = this._usersRepository.findById(id);
 
-    if (user) {
-      throw new AppError("User already exists");
+    if (!user) {
+      throw new AppError("User not found", 404);
     }
 
     // 1 ano (em semanas)
@@ -43,19 +38,17 @@ export class CreateUserUseCase {
     // Valor da hora
     const valueHour = MonthlyBudget / monthlyTotalHours;
 
-    const newUser = this.usersRepository.create({
+    const updatedUser = this._usersRepository.update({
+      id,
       name,
       email,
-      password,
-      BirthDate,
       MonthlyBudget,
-      ZipCode,
       VacationPerYear,
       DaysPerWeek,
       HoursPerDay,
       ValueHour: valueHour,
     });
 
-    return newUser;
+    return updatedUser;
   }
 }

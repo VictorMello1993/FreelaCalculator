@@ -3,4 +3,5 @@ export const TYPES = {
   IJobsRepository: Symbol.for("IJobsRepository"),
   CreateUserUseCase: Symbol.for("CreateUserUseCase"),
   CreateJobUseCase: Symbol.for("CreateJobUseCase"),
+  EditUserProfileUseCase: Symbol.for("EditUserProfileUseCase"),
 };

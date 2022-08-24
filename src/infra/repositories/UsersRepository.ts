@@ -1,5 +1,6 @@
 import { injectable } from "inversify";
 import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel";
+import { UpdateUserInputModel } from "../../core/dtos/users/UpdateUserInputModel";
 import { User } from "../../core/entities/User";
 import { IUsersRepository } from "../../core/repositories/IUsersRepository";
 import { users } from "../database/db";
@@ -38,5 +39,36 @@ export class UsersRepository implements IUsersRepository {
 
   findByEmail(email: string): User {
     return users.find((user) => user.email === email);
+  }
+
+  findById(id: string): User {
+    return users.find((user) => user.id === id);
+  }
+
+  update({
+    id,
+    name,
+    email,
+    MonthlyBudget,
+    VacationPerYear,
+    DaysPerWeek,
+    HoursPerDay,
+    ValueHour,
+  }: UpdateUserInputModel): User {
+    const index = users.findIndex((user) => user.id === id);
+
+    if (index !== -1) {
+      users[index].name = name;
+      users[index].email = email;
+      users[index].MonthlyBudget = MonthlyBudget;
+      users[index].VacationPerYear = VacationPerYear;
+      users[index].DaysPerWeek = DaysPerWeek;
+      users[index].HoursPerDay = HoursPerDay;
+      users[index].ValueHour = ValueHour;
+
+      return users[index];
+    }
+
+    return null;
   }
 }

@@ -1,4 +1,5 @@
 import { CreateUserInputModel } from "../dtos/users/CreateUserInputModel";
+import { UpdateUserInputModel } from "../dtos/users/UpdateUserInputModel";
 import { User } from "../entities/User";
 
 export interface IUsersRepository {
@@ -14,5 +15,17 @@ export interface IUsersRepository {
     HoursPerDay,
     ValueHour,
   }: CreateUserInputModel): User;
+
   findByEmail(email: string): User;
+  findById(id: string): User;
+  update({
+    id,
+    name,
+    email,
+    MonthlyBudget,
+    VacationPerYear,
+    DaysPerWeek,
+    HoursPerDay,
+    ValueHour,
+  }: UpdateUserInputModel): User;
 }

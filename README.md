@@ -16,6 +16,8 @@
 
 - [ ] Inativação do usuário
 
+- [ ] Autenticação do usuário
+
 **Cadastro de jobs (projetos)**
 - [ ] Usuário deve estar autenticado para cadastrar um job
 

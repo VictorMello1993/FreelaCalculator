@@ -12,9 +12,9 @@
 
 - [x] Deve ser possível cadastrar usuário com o valor das horas calculado com base na proporção entre a estimativa de quanto deseja ganhar por mês, número de dias             trabalhados por semana, horas trabalhadas por dia menos as férias
 
-- [ ] Edição do perfil do usuário
+- [x] Edição do perfil do usuário
 
-- [ ] Inativação do usuário
+- [x] Inativação do usuário
 
 - [ ] Autenticação do usuário
 
@@ -31,4 +31,9 @@
 
 - [ ] Listagem de jobs por usuário com cálculo do valor líquido (valor das horas dedicadas proporcionais ao total de horas estimadas do job) e a contagem
       das horas restantes para vencimento do job (nº de horas dedicadas por dia - total de horas estimadas do job com status em progresso)
-
+      
+## Requisitos não funcionais
+- [ ] O token deve ter duração de 1 hora
+- [ ] Criação de middlewares de erros
+- [ ] Criação de middlewares para validação de DTOs
+- [ ] Criação de DTOs como modelo de saída em vez de utilizar entidades nos controllers

@@ -1,4 +1,5 @@
 import { inject } from "inversify";
+
 import {
   BaseHttpController,
   controller,
@@ -9,6 +10,7 @@ import {
   requestBody,
   requestParam,
 } from "inversify-express-utils";
+
 import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel";
 import { UpdateUserInputModel } from "../../core/dtos/users/UpdateUserInputModel";
 import { User } from "../../core/entities/User";

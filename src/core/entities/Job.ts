@@ -5,12 +5,13 @@ export class Job {
   name: string;
   DailyHours: number;
   TotalHours: number;
-  CreatedAt: Number;
-  UpdatedAt: Number;
+  CreatedAt: Date;
+  UpdatedAt: Date;
 
   constructor() {
     if (!this.id) {
       this.id = uuid();
+      this.CreatedAt = new Date();
     }
   }
 }

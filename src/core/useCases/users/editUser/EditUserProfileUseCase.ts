@@ -16,7 +16,6 @@ export class EditUserProfileUseCase {
   }
 
   execute({ id, name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay }: UpdateUserInputModel) {
-    console.log("id", id);
     const user = this._usersRepository.findById(id);
 
     if (!user) {

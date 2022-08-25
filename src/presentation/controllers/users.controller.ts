@@ -39,11 +39,9 @@ export class UsersController extends BaseHttpController implements interfaces.Co
 
   @httpPut("/:id")
   async update(
-    @requestParam(":id") params: string,
+    @requestParam("id") params: string,
     @requestBody() body: UpdateUserInputModel,
   ): Promise<interfaces.IHttpActionResult> {
-    console.log("params", params);
-
     const result = this._editUserProfileUseCase.execute({
       id: params,
       name: body.name,

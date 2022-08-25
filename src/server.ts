@@ -24,7 +24,6 @@ export class App {
       // Middleware de erros
       app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
         if (error instanceof AppError) {
-          console.log("testeeee", error);
           return response.status(error.statusCode).json({ message: error.message });
         }
 

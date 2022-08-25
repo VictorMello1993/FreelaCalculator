@@ -14,14 +14,13 @@ export class User {
   DaysPerWeek: number;
   HoursPerDay: number;
   ValueHour: number;
+  active: boolean;
 
   constructor() {
     if (!this.id) {
       this.id = uuid();
-    }
-
-    if (!this.CreatedAt) {
       this.CreatedAt = new Date();
+      this.active = true;
     }
   }
 }

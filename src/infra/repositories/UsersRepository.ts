@@ -71,4 +71,14 @@ export class UsersRepository implements IUsersRepository {
 
     return null;
   }
+
+  inactivateUser(id: string): void {
+    const index = users.findIndex((user) => user.id === id);
+
+    if (index !== -1) {
+      users[index].active = false;
+    }
+
+    console.log(users);
+  }
 }

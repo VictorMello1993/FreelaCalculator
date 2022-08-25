@@ -2,6 +2,7 @@ import { inject } from "inversify";
 import {
   BaseHttpController,
   controller,
+  httpDelete,
   httpPost,
   httpPut,
   interfaces,
@@ -12,6 +13,7 @@ import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel
 import { UpdateUserInputModel } from "../../core/dtos/users/UpdateUserInputModel";
 import { User } from "../../core/entities/User";
 import { CreateUserUseCase } from "../../core/useCases/users/createUser/CreateUserUseCase";
+import { InactivateUserUseCase } from "../../core/useCases/users/deleteUser/InactivateUserUseCase";
 import { EditUserProfileUseCase } from "../../core/useCases/users/editUser/EditUserProfileUseCase";
 import { TYPES } from "../../types";
 
@@ -19,16 +21,20 @@ import { TYPES } from "../../types";
 export class UsersController extends BaseHttpController implements interfaces.Controller {
   private readonly _createUserUseCase: CreateUserUseCase;
   private readonly _editUserProfileUseCase: EditUserProfileUseCase;
+  private readonly _inactivateUserUseCase: InactivateUserUseCase;
 
   constructor(
     @inject(TYPES.CreateUserUseCase)
     createUserUseCase: CreateUserUseCase,
     @inject(TYPES.EditUserProfileUseCase)
     updateUserUseCase: EditUserProfileUseCase,
+    @inject(TYPES.InactivateUserUseCase)
+    inactivateUserUseCase: InactivateUserUseCase,
   ) {
     super();
     this._createUserUseCase = createUserUseCase;
     this._editUserProfileUseCase = updateUserUseCase;
+    this._inactivateUserUseCase = inactivateUserUseCase;
   }
 
   @httpPost("/")
@@ -53,5 +59,11 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     });
 
     return this.json(result);
+  }
+
+  @httpDelete("/:id")
+  async delete(@requestParam("id") params: string): Promise<void> {
+    const result = this._inactivateUserUseCase.execute(params);
+    this.json(result);
   }
 }

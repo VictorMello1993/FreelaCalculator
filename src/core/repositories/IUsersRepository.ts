@@ -17,7 +17,9 @@ export interface IUsersRepository {
   }: CreateUserInputModel): User;
 
   findByEmail(email: string): User;
+
   findById(id: string): User;
+
   update({
     id,
     name,
@@ -28,4 +30,6 @@ export interface IUsersRepository {
     HoursPerDay,
     ValueHour,
   }: UpdateUserInputModel): User;
+
+  inactivateUser(id);
 }

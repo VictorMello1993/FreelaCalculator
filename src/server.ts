@@ -20,14 +20,15 @@ export class App {
 
     server.setConfig((app) => {
       app.use(express.json());
+    });
 
-      // Middleware de erros
+    server.setErrorConfig((app) => {
       app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
         if (error instanceof AppError) {
-          return response.status(error.statusCode).json({ message: error.message });
+          return response.status(error.statusCode).json({ status: error.statusCode, message: error.message });
         }
 
-        return response.status(500).json({ status: "error", message: "Interval server error" });
+        return response.status(500).json({ status: 500, message: "Interval server error" });
       });
     });
 

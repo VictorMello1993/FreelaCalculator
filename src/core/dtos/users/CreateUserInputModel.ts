@@ -1,5 +1,10 @@
+import { IsNotEmpty, IsString } from "class-validator";
+
 export class CreateUserInputModel {
+  @IsString()
+  @IsNotEmpty()
   name: string;
+
   email: string;
   password: string;
   BirthDate: Date;

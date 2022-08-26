@@ -18,6 +18,7 @@ import { CreateUserUseCase } from "../../core/useCases/users/createUser/CreateUs
 import { InactivateUserUseCase } from "../../core/useCases/users/deleteUser/InactivateUserUseCase";
 import { EditUserProfileUseCase } from "../../core/useCases/users/editUser/EditUserProfileUseCase";
 import { TYPES } from "../../types";
+import { ValidateDTOMiddleware } from "../middlewares/validateDTOMiddleware";
 
 @controller("/users")
 export class UsersController extends BaseHttpController implements interfaces.Controller {
@@ -39,7 +40,7 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     this._inactivateUserUseCase = inactivateUserUseCase;
   }
 
-  @httpPost("/")
+  @httpPost("/", ValidateDTOMiddleware(CreateUserInputModel, "body"))
   async create(@requestBody() body: CreateUserInputModel): Promise<interfaces.IHttpActionResult> {
     const result: User = this._createUserUseCase.execute(body);
     return this.json(result);

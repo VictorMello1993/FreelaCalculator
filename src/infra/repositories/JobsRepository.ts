@@ -7,7 +7,7 @@ import { jobs } from "../database/db";
 
 @injectable()
 export class JobsRepository implements IJobsRepository {
-  create(data: CreateJobInputModel): Job {
+  create(data: CreateJobInputModel.Body): Job {
     const job = new Job();
 
     job.name = data.name;
@@ -19,7 +19,7 @@ export class JobsRepository implements IJobsRepository {
     return job;
   }
 
-  update({ id, name, DailyHours, TotalHours }: EditJobInputModel): Job {
+  update({ name, DailyHours, TotalHours }: EditJobInputModel.Body, { id }: EditJobInputModel.Params): Job {
     const index = jobs.findIndex((job) => job.id === id);
 
     if (index !== -1) {

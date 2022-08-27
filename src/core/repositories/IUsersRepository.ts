@@ -1,4 +1,4 @@
-import { CreateUserInputModel } from "../dtos/users/CreateUserInputModel";
+import { CreateUserInputModel } from "./../dtos/users/CreateUserInputModel";
 import { UpdateUserInputModel } from "../dtos/users/UpdateUserInputModel";
 import { User } from "../entities/User";
 
@@ -14,22 +14,16 @@ export interface IUsersRepository {
     DaysPerWeek,
     HoursPerDay,
     ValueHour,
-  }: CreateUserInputModel): User;
+  }: CreateUserInputModel.Body): User;
 
   findByEmail(email: string): User;
 
   findById(id: string): User;
 
-  update({
-    id,
-    name,
-    email,
-    MonthlyBudget,
-    VacationPerYear,
-    DaysPerWeek,
-    HoursPerDay,
-    ValueHour,
-  }: UpdateUserInputModel): User;
+  update(
+    { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay, ValueHour }: UpdateUserInputModel.Body,
+    { id }: UpdateUserInputModel.Params,
+  ): User;
 
   inactivateUser(id);
 }

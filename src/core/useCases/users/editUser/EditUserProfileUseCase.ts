@@ -15,7 +15,10 @@ export class EditUserProfileUseCase {
     this._usersRepository = usersRepository;
   }
 
-  execute({ id, name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay }: UpdateUserInputModel) {
+  execute(
+    { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay }: UpdateUserInputModel.Body,
+    { id }: UpdateUserInputModel.Params,
+  ) {
     const user = this._usersRepository.findById(id);
 
     if (!user) {
@@ -37,16 +40,18 @@ export class EditUserProfileUseCase {
     // Valor da hora
     const valueHour = MonthlyBudget / monthlyTotalHours;
 
-    const updatedUser = this._usersRepository.update({
-      id,
-      name,
-      email,
-      MonthlyBudget,
-      VacationPerYear,
-      DaysPerWeek,
-      HoursPerDay,
-      ValueHour: valueHour,
-    });
+    const updatedUser = this._usersRepository.update(
+      {
+        name,
+        email,
+        MonthlyBudget,
+        VacationPerYear,
+        DaysPerWeek,
+        HoursPerDay,
+        ValueHour: valueHour,
+      },
+      { id },
+    );
 
     return updatedUser;
   }

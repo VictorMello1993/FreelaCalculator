@@ -14,6 +14,7 @@ import { Job } from "../../core/entities/Job";
 import { CreateJobUseCase } from "../../core/useCases/jobs/createJob/CreateJobUseCase";
 import { TYPES } from "../../types";
 import { EditJobUseCase } from "../../core/useCases/jobs/editJob/EditJobUseCase";
+import { ValidateDTOMiddleware } from "../middlewares/ValidateDTOMiddleware";
 
 @controller("/jobs")
 export class JobsController extends BaseHttpController implements interfaces.Controller {
@@ -31,20 +32,26 @@ export class JobsController extends BaseHttpController implements interfaces.Con
     this._editJobUseCase = editJobUseCase;
   }
 
-  @httpPost("/")
-  async create(@requestBody() body: CreateJobInputModel) {
+  @httpPost("/", ValidateDTOMiddleware(CreateJobInputModel.Body, "body"))
+  async create(@requestBody() body: CreateJobInputModel.Body) {
     const result: Job = this._createJobUseCase.execute(body);
     return this.json(result);
   }
 
-  @httpPut("/:id")
-  async update(@requestBody() body: EditJobInputModel, @requestParam("id") params: string) {
-    const result: Job = this._editJobUseCase.execute({
-      id: params,
-      name: body.name,
-      DailyHours: body.DailyHours,
-      TotalHours: body.TotalHours,
-    });
+  @httpPut(
+    "/:id",
+    ValidateDTOMiddleware(EditJobInputModel.Body, "body"),
+    ValidateDTOMiddleware(EditJobInputModel.Params, "params"),
+  )
+  async update(@requestBody() body: EditJobInputModel.Body, @requestParam("id") params: EditJobInputModel.Params) {
+    const result: Job = this._editJobUseCase.execute(
+      {
+        name: body.name,
+        DailyHours: body.DailyHours,
+        TotalHours: body.TotalHours,
+      },
+      { id: params.toString() },
+    );
 
     return this.json(result);
   }

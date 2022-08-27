@@ -3,8 +3,8 @@ import { EditJobInputModel } from "../dtos/jobs/EditJobInputModel";
 import { Job } from "../entities/Job";
 
 export interface IJobsRepository {
-  create(data: CreateJobInputModel): Job;
+  create(data: CreateJobInputModel.Body): Job;
   findById(id: string): Job;
-  update(data: EditJobInputModel): Job;
+  update(data: EditJobInputModel.Body, id: EditJobInputModel.Params): Job;
   findByName(name: string): Job;
 }

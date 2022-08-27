@@ -15,7 +15,7 @@ export class CreateJobUseCase {
     this._jobsRepository = jobsRepository;
   }
 
-  execute({ name, DailyHours, TotalHours }: CreateJobInputModel) {
+  execute({ name, DailyHours, TotalHours }: CreateJobInputModel.Body) {
     const job = this._jobsRepository.findByName(name);
 
     if (job) {

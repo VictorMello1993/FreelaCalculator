@@ -21,7 +21,7 @@ export class CreateUserUseCase {
     VacationPerYear,
     DaysPerWeek,
     HoursPerDay,
-  }: CreateUserInputModel) {
+  }: CreateUserInputModel.Body) {
     const user = this.usersRepository.findByEmail(email);
 
     if (user) {

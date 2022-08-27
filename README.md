@@ -34,6 +34,6 @@
       
 ## Requisitos não funcionais
 - [ ] O token deve ter duração de 1 hora
-- [ ] Criação de middlewares de erros
-- [ ] Criação de middlewares para validação de DTOs
+- [x] Criação de middlewares de erros
+- [x] Criação de middlewares para validação de DTOs
 - [ ] Criação de DTOs como modelo de saída em vez de utilizar entidades nos controllers

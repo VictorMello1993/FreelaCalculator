@@ -2,7 +2,7 @@ import { IsNotEmpty, IsNumber, IsString, IsUUID, MaxLength } from "class-validat
 
 export namespace EditJobInputModel {
   export class Params {
-    @IsUUID()
+    @IsUUID("4")
     @IsNotEmpty()
     id: string;
   }

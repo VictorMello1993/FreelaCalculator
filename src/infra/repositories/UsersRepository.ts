@@ -18,7 +18,7 @@ export class UsersRepository implements IUsersRepository {
     DaysPerWeek,
     HoursPerDay,
     ValueHour,
-  }: CreateUserInputModel.Body): User {
+  }: CreateUserInputModel): User {
     const newUser = new User();
 
     newUser.name = name;
@@ -45,10 +45,16 @@ export class UsersRepository implements IUsersRepository {
     return users.find((user) => user.id === id);
   }
 
-  update(
-    { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay, ValueHour }: UpdateUserInputModel.Body,
-    { id }: UpdateUserInputModel.Params,
-  ): User {
+  update({
+    id,
+    name,
+    email,
+    MonthlyBudget,
+    VacationPerYear,
+    DaysPerWeek,
+    HoursPerDay,
+    ValueHour,
+  }: UpdateUserInputModel): User {
     const index = users.findIndex((user) => user.id === id);
 
     if (index !== -1) {
@@ -59,6 +65,7 @@ export class UsersRepository implements IUsersRepository {
       users[index].DaysPerWeek = DaysPerWeek;
       users[index].HoursPerDay = HoursPerDay;
       users[index].ValueHour = ValueHour;
+      users[index].UpdatedAt = new Date();
 
       return users[index];
     }

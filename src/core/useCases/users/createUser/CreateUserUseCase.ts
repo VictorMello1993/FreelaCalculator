@@ -1,18 +1,22 @@
 import { inject, injectable } from "inversify";
-import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
 import { TYPES } from "../../../../types";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
 import { AppError } from "../../../../errors/AppError";
 import { generateHash } from "../../../../utils/auth.helpers";
-import { User } from "../../../entities/User";
 import { CalculateValueHour } from "../../../services/CalculateValueHour";
+import { UserMap } from "../../../mappers/UserMap";
+import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
 
 @injectable()
 export class CreateUserUseCase {
+  private readonly _usersRepository: IUsersRepository;
+
   constructor(
     @inject(TYPES.IUsersRepository)
     private usersRepository: IUsersRepository,
-  ) { }
+  ) {
+    this._usersRepository = usersRepository;
+  }
 
   async execute({
     name,
@@ -24,7 +28,7 @@ export class CreateUserUseCase {
     VacationPerYear,
     DaysPerWeek,
     HoursPerDay,
-  }: CreateUserInputModel.Body): Promise<User> {
+  }: CreateUserInputModel): Promise<UserMap> {
     const user = this.usersRepository.findByEmail(email);
 
     if (user) {
@@ -48,6 +52,6 @@ export class CreateUserUseCase {
       ValueHour: valueHour,
     });
 
-    return newUser;
+    return UserMap.toDTO(newUser);
   }
 }

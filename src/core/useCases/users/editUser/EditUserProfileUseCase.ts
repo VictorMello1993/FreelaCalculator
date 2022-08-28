@@ -2,7 +2,9 @@ import { inject, injectable } from "inversify";
 import { AppError } from "../../../../errors/AppError";
 import { TYPES } from "../../../../types";
 import { UpdateUserInputModel } from "../../../dtos/users/UpdateUserInputModel";
+import { UserMap } from "../../../mappers/UserMap";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import { CalculateValueHour } from "../../../services/CalculateValueHour";
 
 @injectable()
 export class EditUserProfileUseCase {
@@ -15,44 +17,34 @@ export class EditUserProfileUseCase {
     this._usersRepository = usersRepository;
   }
 
-  execute(
-    { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay }: UpdateUserInputModel.Body,
-    { id }: UpdateUserInputModel.Params,
-  ) {
+  async execute({
+    id,
+    name,
+    email,
+    MonthlyBudget,
+    VacationPerYear,
+    DaysPerWeek,
+    HoursPerDay,
+  }: UpdateUserInputModel): Promise<UserMap> {
     const user = this._usersRepository.findById(id);
 
     if (!user) {
       throw new AppError("User not found", 404);
     }
 
-    // 1 ano (em semanas)
-    const weeksPerYear = 52;
+    const valueHour = CalculateValueHour(VacationPerYear, HoursPerDay, DaysPerWeek, MonthlyBudget);
 
-    // Removendo as semanas de férias, para obter quantas semanas tem em 1 mês
-    const weeksPerMonth = (weeksPerYear - VacationPerYear) / 12;
+    const updatedUser = this._usersRepository.update({
+      id,
+      name,
+      email,
+      MonthlyBudget,
+      VacationPerYear,
+      DaysPerWeek,
+      HoursPerDay,
+      ValueHour: valueHour,
+    });
 
-    // Total de horas trabalhadas na semana
-    const weeksTotalHours = HoursPerDay * DaysPerWeek;
-
-    // Total de horas trabalhadas no mês
-    const monthlyTotalHours = weeksTotalHours * weeksPerMonth;
-
-    // Valor da hora
-    const valueHour = MonthlyBudget / monthlyTotalHours;
-
-    const updatedUser = this._usersRepository.update(
-      {
-        name,
-        email,
-        MonthlyBudget,
-        VacationPerYear,
-        DaysPerWeek,
-        HoursPerDay,
-        ValueHour: valueHour,
-      },
-      { id },
-    );
-
-    return updatedUser;
+    return UserMap.toDTO(updatedUser);
   }
 }

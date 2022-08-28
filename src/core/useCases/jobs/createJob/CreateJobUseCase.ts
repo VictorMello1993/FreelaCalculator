@@ -32,7 +32,7 @@ export class CreateJobUseCase implements ICreateJobUseCase {
     const newJob = this._jobsRepository.create({ name, DailyHours, TotalHours, UserId });
     const jobDTO = JobMap.toDTO(newJob);
 
-    this._usersRepository.updateJobItens(UserId, newJob);
+    this._usersRepository.addJobItem(UserId, newJob);
 
     return jobDTO;
   }

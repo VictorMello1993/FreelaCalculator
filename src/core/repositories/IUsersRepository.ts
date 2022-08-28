@@ -34,5 +34,7 @@ export interface IUsersRepository {
 
   inactivateUser(id: string): void;
 
-  updateJobItens(id: string, job: Job): void;
+  addJobItem(id: string, job: Job): void;
+
+  deleteJobItem(id: string): void;
 }

@@ -8,10 +8,6 @@ import { users } from "../database/db";
 
 @injectable()
 export class UsersRepository implements IUsersRepository {
-  UpdateJobItens(id: string): void {
-    throw new Error("Method not implemented.");
-  }
-
   create({
     name,
     email,
@@ -86,11 +82,19 @@ export class UsersRepository implements IUsersRepository {
     }
   }
 
-  updateJobItens(id: string, job: Job): void {
+  addJobItem(id: string, job: Job): void {
     const index = users.findIndex((user) => user.id === id);
 
     if (index !== -1) {
       users[index].JobList.push(job);
+    }
+  }
+
+  deleteJobItem(id: string): void {
+    const index = users.findIndex((user) => user.id === id);
+
+    if (index !== -1) {
+      users[index].JobList.splice(index, 1);
     }
   }
 }

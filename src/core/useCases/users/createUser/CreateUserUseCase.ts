@@ -3,6 +3,9 @@ import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
 import { TYPES } from "../../../../types";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
 import { AppError } from "../../../../errors/AppError";
+import { generateHash } from "../../../../utils/auth.helpers";
+import { User } from "../../../entities/User";
+import { CalculateValueHour } from "../../../services/CalculateValueHour";
 
 @injectable()
 export class CreateUserUseCase {
@@ -11,7 +14,7 @@ export class CreateUserUseCase {
     private usersRepository: IUsersRepository,
   ) { }
 
-  execute({
+  async execute({
     name,
     email,
     password,
@@ -21,32 +24,21 @@ export class CreateUserUseCase {
     VacationPerYear,
     DaysPerWeek,
     HoursPerDay,
-  }: CreateUserInputModel.Body) {
+  }: CreateUserInputModel.Body): Promise<User> {
     const user = this.usersRepository.findByEmail(email);
 
     if (user) {
       throw new AppError("User already exists");
     }
 
-    // 1 ano (em semanas)
-    const weeksPerYear = 52;
+    const valueHour = CalculateValueHour(VacationPerYear, HoursPerDay, DaysPerWeek, MonthlyBudget);
 
-    // Removendo as semanas de férias, para obter quantas semanas tem em 1 mês
-    const weeksPerMonth = (weeksPerYear - VacationPerYear) / 12;
-
-    // Total de horas trabalhadas na semana
-    const weeksTotalHours = HoursPerDay * DaysPerWeek;
-
-    // Total de horas trabalhadas no mês
-    const monthlyTotalHours = weeksTotalHours * weeksPerMonth;
-
-    // Valor da hora
-    const valueHour = MonthlyBudget / monthlyTotalHours;
+    const hashedPassword = await generateHash(password);
 
     const newUser = this.usersRepository.create({
       name,
       email,
-      password,
+      password: hashedPassword,
       BirthDate,
       MonthlyBudget,
       ZipCode,

@@ -7,4 +7,5 @@ export const TYPES = {
   InactivateUserUseCase: Symbol.for("InactivateUserUseCase"),
   EditJobUseCase: Symbol.for("EditJobUseCase"),
   DeleteJobUseCase: Symbol.for("DeleteJobUseCase"),
+  AuthenticateUserUseCase: Symbol.for("AuthenticateUserUseCase"),
 };

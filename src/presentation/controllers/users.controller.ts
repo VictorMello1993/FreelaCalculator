@@ -10,11 +10,13 @@ import {
   requestBody,
   requestParam,
 } from "inversify-express-utils";
+import { AuthInputModel } from "../../core/dtos/auth/auth";
 
 import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel";
 import { InactivateUserInputModel } from "../../core/dtos/users/InactivateUserInputModel";
 import { UpdateUserInputModel } from "../../core/dtos/users/UpdateUserInputModel";
 import { User } from "../../core/entities/User";
+import { AuthenticateUserUseCase } from "../../core/useCases/users/auth/AuthenticateUserUseCase";
 import { CreateUserUseCase } from "../../core/useCases/users/createUser/CreateUserUseCase";
 import { InactivateUserUseCase } from "../../core/useCases/users/deleteUser/InactivateUserUseCase";
 import { EditUserProfileUseCase } from "../../core/useCases/users/editUser/EditUserProfileUseCase";
@@ -26,6 +28,7 @@ export class UsersController extends BaseHttpController implements interfaces.Co
   private readonly _createUserUseCase: CreateUserUseCase;
   private readonly _editUserProfileUseCase: EditUserProfileUseCase;
   private readonly _inactivateUserUseCase: InactivateUserUseCase;
+  private readonly _authenticateUserUseCase: AuthenticateUserUseCase;
 
   constructor(
     @inject(TYPES.CreateUserUseCase)
@@ -34,16 +37,19 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     updateUserUseCase: EditUserProfileUseCase,
     @inject(TYPES.InactivateUserUseCase)
     inactivateUserUseCase: InactivateUserUseCase,
+    @inject(TYPES.AuthenticateUserUseCase)
+    authenticateUserUseCase: AuthenticateUserUseCase,
   ) {
     super();
     this._createUserUseCase = createUserUseCase;
     this._editUserProfileUseCase = updateUserUseCase;
     this._inactivateUserUseCase = inactivateUserUseCase;
+    this._authenticateUserUseCase = authenticateUserUseCase;
   }
 
   @httpPost("/", ValidateDTOMiddleware(CreateUserInputModel.Body, "body"))
   async create(@requestBody() body: CreateUserInputModel.Body): Promise<interfaces.IHttpActionResult> {
-    const result: User = this._createUserUseCase.execute(body);
+    const result: User = await this._createUserUseCase.execute(body);
     return this.json(result);
   }
 
@@ -71,5 +77,11 @@ export class UsersController extends BaseHttpController implements interfaces.Co
   async delete(@requestParam("id") params: string): Promise<void> {
     const result = this._inactivateUserUseCase.execute(params);
     this.json(result);
+  }
+
+  @httpPost("/login", ValidateDTOMiddleware(AuthInputModel.Body, "body"))
+  async auth(@requestBody() body: AuthInputModel.Body) {
+    const token = await this._authenticateUserUseCase.execute(body);
+    return this.json(token);
   }
 }

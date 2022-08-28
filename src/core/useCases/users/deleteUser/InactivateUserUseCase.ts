@@ -2,9 +2,10 @@ import { inject, injectable } from "inversify";
 import { AppError } from "../../../../errors/AppError";
 import { TYPES } from "../../../../types";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import { IInactivateUserUseCase } from "./IInactivateUserUseCase";
 
 @injectable()
-export class InactivateUserUseCase {
+export class InactivateUserUseCase implements IInactivateUserUseCase {
   private readonly _usersRepository: IUsersRepository;
 
   constructor(
@@ -14,7 +15,7 @@ export class InactivateUserUseCase {
     this._usersRepository = usersRepository;
   }
 
-  execute(id: string) {
+  execute(id: string): void {
     const user = this._usersRepository.findById(id);
 
     if (!user) {

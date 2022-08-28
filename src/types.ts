@@ -1,11 +1,11 @@
 export const TYPES = {
   IUsersRepository: Symbol.for("IUsersRepository"),
   IJobsRepository: Symbol.for("IJobsRepository"),
-  CreateUserUseCase: Symbol.for("CreateUserUseCase"),
-  CreateJobUseCase: Symbol.for("CreateJobUseCase"),
-  EditUserProfileUseCase: Symbol.for("EditUserProfileUseCase"),
-  InactivateUserUseCase: Symbol.for("InactivateUserUseCase"),
-  EditJobUseCase: Symbol.for("EditJobUseCase"),
-  DeleteJobUseCase: Symbol.for("DeleteJobUseCase"),
-  AuthenticateUserUseCase: Symbol.for("AuthenticateUserUseCase"),
+  ICreateUserUseCase: Symbol.for("ICreateUserUseCase"),
+  ICreateJobUseCase: Symbol.for("ICreateJobUseCase"),
+  IEditUserProfileUseCase: Symbol.for("IEditUserProfileUseCase"),
+  IInactivateUserUseCase: Symbol.for("IInactivateUserUseCase"),
+  IEditJobUseCase: Symbol.for("IEditJobUseCase"),
+  IDeleteJobUseCase: Symbol.for("IDeleteJobUseCase"),
+  IAuthenticateUserUseCase: Symbol.for("IAuthenticateUserUseCase"),
 };

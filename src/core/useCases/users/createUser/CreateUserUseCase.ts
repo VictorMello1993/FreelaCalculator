@@ -6,9 +6,10 @@ import { generateHash } from "../../../../utils/auth.helpers";
 import { CalculateValueHour } from "../../../services/CalculateValueHour";
 import { UserMap } from "../../../mappers/UserMap";
 import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
+import { ICreateUserUseCase } from "./ICreateUserUseCase";
 
 @injectable()
-export class CreateUserUseCase {
+export class CreateUserUseCase implements ICreateUserUseCase {
   private readonly _usersRepository: IUsersRepository;
 
   constructor(
@@ -29,7 +30,7 @@ export class CreateUserUseCase {
     DaysPerWeek,
     HoursPerDay,
   }: CreateUserInputModel): Promise<UserMap> {
-    const user = this.usersRepository.findByEmail(email);
+    const user = this._usersRepository.findByEmail(email);
 
     if (user) {
       throw new AppError("User already exists");
@@ -39,7 +40,7 @@ export class CreateUserUseCase {
 
     const hashedPassword = await generateHash(password);
 
-    const newUser = this.usersRepository.create({
+    const newUser = this._usersRepository.create({
       name,
       email,
       password: hashedPassword,

@@ -5,9 +5,10 @@ import { UpdateUserInputModel } from "../../../dtos/users/UpdateUserInputModel";
 import { UserMap } from "../../../mappers/UserMap";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
 import { CalculateValueHour } from "../../../services/CalculateValueHour";
+import { IEditUserProfileUseCase } from "./IEditUserProfileUseCase";
 
 @injectable()
-export class EditUserProfileUseCase {
+export class EditUserProfileUseCase implements IEditUserProfileUseCase {
   private readonly _usersRepository: IUsersRepository;
 
   constructor(

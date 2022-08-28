@@ -10,30 +10,30 @@ import {
   requestBody,
   requestParam,
 } from "inversify-express-utils";
-import { CreateJobUseCase } from "../../core/useCases/jobs/createJob/CreateJobUseCase";
 import { TYPES } from "../../types";
-import { EditJobUseCase } from "../../core/useCases/jobs/editJob/EditJobUseCase";
 import { ValidateDTOMiddleware } from "../middlewares/ValidateDTOMiddleware";
 import { EnsureAuthenticatedDTOMiddleware } from "../middlewares/EnsureAuthenticatedDTOMiddleware";
-import { DeleteJobUseCase } from "../../core/useCases/jobs/deleteJob/DeleteJobUseCase";
 import { AuthRequestDTO } from "../dtos/auth/AuthRequestDTO";
 import { CreateJobRequestDTO } from "../dtos/jobs/CreateJobRequestDTO";
 import { EditJobRequestDTO } from "../dtos/jobs/EditJobRequestDTO";
 import { DeleteJobRequestDTO } from "../dtos/jobs/DeleteJobRequestDTO";
+import { ICreateJobUseCase } from "../../core/useCases/jobs/createJob/ICreateJobUseCase";
+import { IDeleteJobUseCase } from "../../core/useCases/jobs/deleteJob/IDeleteJobUseCase";
+import { IEditJobUseCase } from "../../core/useCases/jobs/editJob/IEditJobUseCase";
 
 @controller("/jobs")
 export class JobsController extends BaseHttpController implements interfaces.Controller {
-  private readonly _createJobUseCase: CreateJobUseCase;
-  private readonly _editJobUseCase: EditJobUseCase;
-  private readonly _deleteJobUseCase: DeleteJobUseCase;
+  private readonly _createJobUseCase: ICreateJobUseCase;
+  private readonly _editJobUseCase: IEditJobUseCase;
+  private readonly _deleteJobUseCase: IDeleteJobUseCase;
 
   constructor(
-    @inject(TYPES.CreateJobUseCase)
-    createJobUseCase: CreateJobUseCase,
-    @inject(TYPES.EditJobUseCase)
-    editJobUseCase: EditJobUseCase,
-    @inject(TYPES.DeleteJobUseCase)
-    deleteJobUseCase: DeleteJobUseCase,
+    @inject(TYPES.ICreateJobUseCase)
+    createJobUseCase: ICreateJobUseCase,
+    @inject(TYPES.IEditJobUseCase)
+    editJobUseCase: IEditJobUseCase,
+    @inject(TYPES.IDeleteJobUseCase)
+    deleteJobUseCase: IDeleteJobUseCase,
   ) {
     super();
     this._createJobUseCase = createJobUseCase;

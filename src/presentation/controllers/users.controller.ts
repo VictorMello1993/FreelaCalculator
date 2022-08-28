@@ -10,10 +10,10 @@ import {
   requestBody,
   requestParam,
 } from "inversify-express-utils";
-import { AuthenticateUserUseCase } from "../../core/useCases/users/auth/AuthenticateUserUseCase";
-import { CreateUserUseCase } from "../../core/useCases/users/createUser/CreateUserUseCase";
-import { InactivateUserUseCase } from "../../core/useCases/users/deleteUser/InactivateUserUseCase";
-import { EditUserProfileUseCase } from "../../core/useCases/users/editUser/EditUserProfileUseCase";
+import { IAuthenticateUserUseCase } from "../../core/useCases/users/auth/IAuthenticateUserUseCase";
+import { ICreateUserUseCase } from "../../core/useCases/users/createUser/ICreateUserUseCase";
+import { IInactivateUserUseCase } from "../../core/useCases/users/deleteUser/IInactivateUserUseCase";
+import { IEditUserProfileUseCase } from "../../core/useCases/users/editUser/IEditUserProfileUseCase";
 import { TYPES } from "../../types";
 import { AuthRequestDTO } from "../dtos/auth/AuthRequestDTO";
 import { CreateUserRequestDTO } from "../dtos/users/CreateUserRequestDTO";
@@ -23,20 +23,20 @@ import { ValidateDTOMiddleware } from "../middlewares/ValidateDTOMiddleware";
 
 @controller("/users")
 export class UsersController extends BaseHttpController implements interfaces.Controller {
-  private readonly _createUserUseCase: CreateUserUseCase;
-  private readonly _editUserProfileUseCase: EditUserProfileUseCase;
-  private readonly _inactivateUserUseCase: InactivateUserUseCase;
-  private readonly _authenticateUserUseCase: AuthenticateUserUseCase;
+  private readonly _createUserUseCase: ICreateUserUseCase;
+  private readonly _editUserProfileUseCase: IEditUserProfileUseCase;
+  private readonly _inactivateUserUseCase: IInactivateUserUseCase;
+  private readonly _authenticateUserUseCase: IAuthenticateUserUseCase;
 
   constructor(
-    @inject(TYPES.CreateUserUseCase)
-    createUserUseCase: CreateUserUseCase,
-    @inject(TYPES.EditUserProfileUseCase)
-    updateUserUseCase: EditUserProfileUseCase,
-    @inject(TYPES.InactivateUserUseCase)
-    inactivateUserUseCase: InactivateUserUseCase,
-    @inject(TYPES.AuthenticateUserUseCase)
-    authenticateUserUseCase: AuthenticateUserUseCase,
+    @inject(TYPES.ICreateUserUseCase)
+    createUserUseCase: ICreateUserUseCase,
+    @inject(TYPES.IEditUserProfileUseCase)
+    updateUserUseCase: IEditUserProfileUseCase,
+    @inject(TYPES.IInactivateUserUseCase)
+    inactivateUserUseCase: IInactivateUserUseCase,
+    @inject(TYPES.IAuthenticateUserUseCase)
+    authenticateUserUseCase: IAuthenticateUserUseCase,
   ) {
     super();
     this._createUserUseCase = createUserUseCase;

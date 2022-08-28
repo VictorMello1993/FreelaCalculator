@@ -4,9 +4,10 @@ import { TYPES } from "../../../../types";
 import { CreateJobInputModel } from "../../../dtos/jobs/CreateJobInputModel";
 import { JobMap } from "../../../mappers/JobMap";
 import { IJobsRepository } from "../../../repositories/IJobsRepository";
+import { ICreateJobUseCase } from "./ICreateJobUseCase";
 
 @injectable()
-export class CreateJobUseCase {
+export class CreateJobUseCase implements ICreateJobUseCase {
   private readonly _jobsRepository: IJobsRepository;
 
   constructor(
@@ -16,7 +17,7 @@ export class CreateJobUseCase {
     this._jobsRepository = jobsRepository;
   }
 
-  execute({ name, DailyHours, TotalHours, UserId }: CreateJobInputModel) {
+  execute({ name, DailyHours, TotalHours, UserId }: CreateJobInputModel): JobMap {
     const job = this._jobsRepository.findByName(name);
 
     if (job) {
@@ -24,7 +25,6 @@ export class CreateJobUseCase {
     }
 
     const newJob = this._jobsRepository.create({ name, DailyHours, TotalHours, UserId });
-
     const jobDTO = JobMap.toDTO(newJob);
 
     return jobDTO;

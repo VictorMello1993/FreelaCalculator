@@ -2,9 +2,10 @@ import { inject, injectable } from "inversify";
 import { AppError } from "../../../../errors/AppError";
 import { TYPES } from "../../../../types";
 import { IJobsRepository } from "../../../repositories/IJobsRepository";
+import { IDeleteJobUseCase } from "./IDeleteJobUseCase";
 
 @injectable()
-export class DeleteJobUseCase {
+export class DeleteJobUseCase implements IDeleteJobUseCase {
   private readonly _jobsRepository: IJobsRepository;
 
   constructor(

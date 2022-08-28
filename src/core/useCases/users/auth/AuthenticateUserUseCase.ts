@@ -6,9 +6,10 @@ import { TokenModel } from "../../../../types/TokenModel";
 import { generateToken } from "../../../../utils/auth.helpers";
 import { AuthInputModel } from "../../../dtos/auth/auth";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import { IAuthenticateUserUseCase } from "./IAuthenticateUserUseCase";
 
 @injectable()
-export class AuthenticateUserUseCase {
+export class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
   private readonly _usersRepository: IUsersRepository;
 
   constructor(

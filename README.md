@@ -1,5 +1,7 @@
 # Freela Calculator
 
+Calculadora de horas trabalhadas em projetos freelancer.
+
 
 ## Diagrama de classe
 ![Diagrama de classe drawio (2)](https://user-images.githubusercontent.com/35710766/187093068-76653db6-dbc6-4e55-b4a3-46b162493df7.png)

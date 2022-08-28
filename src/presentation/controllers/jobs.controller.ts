@@ -15,6 +15,8 @@ import { CreateJobUseCase } from "../../core/useCases/jobs/createJob/CreateJobUs
 import { TYPES } from "../../types";
 import { EditJobUseCase } from "../../core/useCases/jobs/editJob/EditJobUseCase";
 import { ValidateDTOMiddleware } from "../middlewares/ValidateDTOMiddleware";
+import { EnsureAuthenticatedDTOMiddleware } from "../middlewares/EnsureAuthenticatedDTOMiddleware";
+import { AuthInputModel } from "../../core/dtos/auth/auth";
 
 @controller("/jobs")
 export class JobsController extends BaseHttpController implements interfaces.Controller {
@@ -32,7 +34,11 @@ export class JobsController extends BaseHttpController implements interfaces.Con
     this._editJobUseCase = editJobUseCase;
   }
 
-  @httpPost("/", ValidateDTOMiddleware(CreateJobInputModel.Body, "body"))
+  @httpPost(
+    "/",
+    EnsureAuthenticatedDTOMiddleware(AuthInputModel.Headers, "headers"),
+    ValidateDTOMiddleware(CreateJobInputModel.Body, "body"),
+  )
   async create(@requestBody() body: CreateJobInputModel.Body) {
     const result: Job = this._createJobUseCase.execute(body);
     return this.json(result);

@@ -1,5 +1,5 @@
 import { hash, hashSync } from "bcrypt";
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 import { TokenModel } from "../types/TokenModel";
 
 export async function generateToken(...payload: string[]): Promise<TokenModel> {
@@ -19,4 +19,8 @@ export async function generateToken(...payload: string[]): Promise<TokenModel> {
 export async function generateHash(password: string): Promise<string> {
   const hashedPassword = await hash(password, 10);
   return hashSync(password, hashedPassword);
+}
+
+export function getSubjectByToken(token: string): string {
+  return verify(token, process.env.SECRET_KEY).sub as string;
 }

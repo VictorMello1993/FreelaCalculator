@@ -2,12 +2,15 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
+    "baseUrl": "./src",
     "allowJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "sourceMap": true
   }
 }

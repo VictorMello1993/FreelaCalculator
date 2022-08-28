@@ -72,7 +72,5 @@ export class UsersRepository implements IUsersRepository {
     if (index !== -1) {
       users[index].active = false;
     }
-
-    console.log(users);
   }
 }

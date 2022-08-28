@@ -11,4 +11,8 @@ export namespace AuthInputModel {
     @IsNotEmpty()
     password: string;
   }
+
+  export class Headers {
+    authorization: string;
+  }
 }

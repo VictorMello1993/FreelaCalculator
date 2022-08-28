@@ -6,7 +6,8 @@
   "author": "Victor Mello <victor.mello@al.infnet.edu.br>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r dotenv/config ./src/server.ts"
+    "dev": "ts-node-dev --transpile-only -r dotenv/config --ignore-watch node_modules --respawn ./src/server.ts",
+    "dev:debug": "ts-node-dev --transpile-only -r dotenv/config --respawn --inspect=3333 --project tsconfig.json ./src/server.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

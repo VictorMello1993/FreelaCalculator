@@ -15,8 +15,8 @@ import { IInactivateUserUseCase } from "../core/useCases/users/deleteUser/IInact
 import { InactivateUserUseCase } from "../core/useCases/users/deleteUser/InactivateUserUseCase";
 import { EditUserProfileUseCase } from "../core/useCases/users/editUser/EditUserProfileUseCase";
 import { IEditUserProfileUseCase } from "../core/useCases/users/editUser/IEditUserProfileUseCase";
-import { GetUserByIdUseCase } from "../core/useCases/users/getUseById/GetUserByIdUseCase";
-import { IGetUserByIdUseCase } from "../core/useCases/users/getUseById/IGetUserByIdUseCase";
+import { GetUserByIdUseCase } from "../core/useCases/users/getUserById/GetUserByIdUseCase";
+import { IGetUserByIdUseCase } from "../core/useCases/users/getUserById/IGetUserByIdUseCase";
 import { JobsRepository } from "../infra/repositories/JobsRepository";
 import { UsersRepository } from "../infra/repositories/UsersRepository";
 import { TYPES } from "../types";

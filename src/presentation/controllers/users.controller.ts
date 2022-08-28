@@ -15,7 +15,7 @@ import { IAuthenticateUserUseCase } from "../../core/useCases/users/auth/IAuthen
 import { ICreateUserUseCase } from "../../core/useCases/users/createUser/ICreateUserUseCase";
 import { IInactivateUserUseCase } from "../../core/useCases/users/deleteUser/IInactivateUserUseCase";
 import { IEditUserProfileUseCase } from "../../core/useCases/users/editUser/IEditUserProfileUseCase";
-import { IGetUserByIdUseCase } from "../../core/useCases/users/getUseById/IGetUserByIdUseCase";
+import { IGetUserByIdUseCase } from "../../core/useCases/users/getUserById/IGetUserByIdUseCase";
 import { TYPES } from "../../types";
 import { AuthRequestDTO } from "../dtos/auth/AuthRequestDTO";
 import { CreateUserRequestDTO } from "../dtos/users/CreateUserRequestDTO";

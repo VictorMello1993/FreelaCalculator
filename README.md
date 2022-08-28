@@ -23,9 +23,9 @@
 
 - [x] Cadastro do job
 
-- [ ] Edição do job
+- [x] Edição do job
 
-- [ ] Exclusão do job
+- [x] Exclusão do job
 
 **Dashboard de jobs por usuário**
 

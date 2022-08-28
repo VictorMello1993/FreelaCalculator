@@ -81,6 +81,7 @@ npm run dev
 * <a href="https://www.npmjs.com/package/class-transformer">class-transformer</a>
 * <a href="https://www.npmjs.com/package/reflect-metadata">reflect-metadata</a>
 
-
+## Endpoints para importar
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Freela%20Calculator%20API&uri=https%3A%2F%2Fgist.githubusercontent.com%2FVictorMello1993%2Fdafe59ad64caf6115abb47d8dfdba3f1%2Fraw%2Ffbc28acb2844fb0b0517930ed37e68c7f1a96a9f%2FInsomnia_2022-08-28.json)
 
 

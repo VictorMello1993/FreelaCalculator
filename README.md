@@ -1,9 +1,10 @@
 # Freela Calculator
 
+Calculadora de horas trabalhadas em projetos freelancer.
+
 
 ## Diagrama de classe
-![Diagrama de classe](https://user-images.githubusercontent.com/35710766/185277364-12128f49-76cf-4b1d-bb06-61c5106f2b13.jpg)
-
+![Diagrama de classe drawio (2)](https://user-images.githubusercontent.com/35710766/187093068-76653db6-dbc6-4e55-b4a3-46b162493df7.png)
 
 ## Requisitos funcionais
 **Cadastro de usuários (perfil)**
@@ -36,4 +37,57 @@
 - [x] O token deve ter duração de 1 hora
 - [x] Criação de middlewares de erros
 - [x] Criação de middlewares para validação de DTOs
-- [ ] Criação de DTOs como modelo de saída em vez de utilizar entidades nos controllers
+- [x] Criação de DTOs como modelo de saída em vez de utilizar entidades nos controllers
+
+
+## Executando o projeto
+
+1. Baixe o repositório
+```sh
+git clone https://github.com/VictorMello1993/FreelaCalculator.git
+```
+
+2. Abra a IDE e instale as dependências do projeto
+```
+#yarn
+yarn add
+
+#npm
+npm install
+```
+
+3. Abra o servidor executando o seguinte comando:
+
+```
+#yarn
+yarn dev
+
+#npm
+npm run dev
+```
+
+## Bibliotecas utilizadas
+* <a href="https://nodejs.org/en/">Node.js</a>
+* <a href="https://www.npmjs.com/package/ts-node-dev">ts-node-dev</a>
+* <a href="https://www.npmjs.com/package/jsonwebtoken">jsonwebtoken</a>
+* <a href="https://www.npmjs.com/package/express">Express</a>
+* <a href="https://www.npmjs.com/package/bcryptjs">bcryptjs</a>
+* <a href="https://www.npmjs.com/package/dotenv">dotenv</a>
+* <a href="https://www.npmjs.com/package/uuid">uuid</a>
+* <a href="https://www.npmjs.com/package/typescript">Typescript</a>
+* <a href="https://www.npmjs.com/package/eslint">eslint</a>
+* <a href="https://www.npmjs.com/package/prettier">Prettier</a>
+* <a href="https://www.npmjs.com/package/inversify">Inversify</a>
+* <a href="https://www.npmjs.com/package/class-validator">class-validator</a>
+* <a href="https://www.npmjs.com/package/class-transformer">class-transformer</a>
+* <a href="https://www.npmjs.com/package/reflect-metadata">reflect-metadata</a>
+
+## Endpoints para importar
+
+### Insomnia
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Freela%20Calculator%20API&uri=https%3A%2F%2Fgist.githubusercontent.com%2FVictorMello1993%2Fdafe59ad64caf6115abb47d8dfdba3f1%2Fraw%2Ffbc28acb2844fb0b0517930ed37e68c7f1a96a9f%2FInsomnia_2022-08-28.json)
+
+### Postman
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/263a841b6871b8f930d2?action=collection%2Fimport)
+
+

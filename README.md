@@ -2,7 +2,6 @@
 
 Dashboard de projetos freelancer, contando com uma calculadora de horas trabalhadas dos projetos (Jobs) permitindo que o usuário que registrar consiga gerenciá-los. Um usuário poderá cadastrar, editar ou excluir jobs disponíveis em seu dashboard, assim como alterar dados cadastrais ou até mesmo inativar a conta de seu perfil.
 
-
 ## Diagrama de classe
 ![Diagrama de classe drawio (2)](https://user-images.githubusercontent.com/35710766/187093068-76653db6-dbc6-4e55-b4a3-46b162493df7.png)
 
@@ -85,9 +84,9 @@ npm run dev
 ## Endpoints para importar
 
 ### Insomnia
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Freela%20Calculator%20API&uri=https%3A%2F%2Fgist.githubusercontent.com%2FVictorMello1993%2Fdafe59ad64caf6115abb47d8dfdba3f1%2Fraw%2Ffbc28acb2844fb0b0517930ed37e68c7f1a96a9f%2FInsomnia_2022-08-28.json)
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Freela%20Calculator%20API&uri=https%3A%2F%2Fgist.githubusercontent.com%2FVictorMello1993%2Febcf8e061184c1001ece1e5cd82504f2%2Fraw%2F6949b3430fe417e767bd736920b9873bd798a8c5%2FInsomnia_2022-08-28.json)
 
 ### Postman
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/263a841b6871b8f930d2?action=collection%2Fimport)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/bda7ea4ecb7982e767bb?action=collection%2Fimport)
 
 

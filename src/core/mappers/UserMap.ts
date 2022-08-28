@@ -15,6 +15,7 @@ export class UserMap {
     ValueHour,
     CreatedAt,
     UpdatedAt,
+    JobList,
   }: User) {
     return {
       id,
@@ -29,6 +30,7 @@ export class UserMap {
       ValueHour,
       CreatedAt,
       UpdatedAt,
+      JobList,
     };
   }
 }

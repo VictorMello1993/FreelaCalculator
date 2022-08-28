@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel";
 import { UpdateUserInputModel } from "../../core/dtos/users/UpdateUserInputModel";
+import { Job } from "../../core/entities/Job";
 import { User } from "../../core/entities/User";
 import { IUsersRepository } from "../../core/repositories/IUsersRepository";
 import { users } from "../database/db";
@@ -78,6 +79,22 @@ export class UsersRepository implements IUsersRepository {
 
     if (index !== -1) {
       users[index].active = false;
+    }
+  }
+
+  addJobItem(id: string, job: Job): void {
+    const index = users.findIndex((user) => user.id === id);
+
+    if (index !== -1) {
+      users[index].JobList.push(job);
+    }
+  }
+
+  deleteJobItem(id: string): void {
+    const index = users.findIndex((user) => user.id === id);
+
+    if (index !== -1) {
+      users[index].JobList.splice(index, 1);
     }
   }
 }

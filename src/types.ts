@@ -8,4 +8,5 @@ export const TYPES = {
   IEditJobUseCase: Symbol.for("IEditJobUseCase"),
   IDeleteJobUseCase: Symbol.for("IDeleteJobUseCase"),
   IAuthenticateUserUseCase: Symbol.for("IAuthenticateUserUseCase"),
+  IGetUserByIdUseCase: Symbol.for("IGetUserByIdUseCase"),
 };

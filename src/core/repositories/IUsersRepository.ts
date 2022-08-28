@@ -1,6 +1,7 @@
 import { CreateUserInputModel } from "./../dtos/users/CreateUserInputModel";
 import { User } from "../entities/User";
 import { UpdateUserInputModel } from "../dtos/users/UpdateUserInputModel";
+import { Job } from "../entities/Job";
 
 export interface IUsersRepository {
   create({
@@ -32,4 +33,6 @@ export interface IUsersRepository {
   }: UpdateUserInputModel): User;
 
   inactivateUser(id: string): void;
+
+  updateJobItens(id: string, job: Job): void;
 }

@@ -1,12 +1,17 @@
 import { injectable } from "inversify";
 import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel";
 import { UpdateUserInputModel } from "../../core/dtos/users/UpdateUserInputModel";
+import { Job } from "../../core/entities/Job";
 import { User } from "../../core/entities/User";
 import { IUsersRepository } from "../../core/repositories/IUsersRepository";
 import { users } from "../database/db";
 
 @injectable()
 export class UsersRepository implements IUsersRepository {
+  UpdateJobItens(id: string): void {
+    throw new Error("Method not implemented.");
+  }
+
   create({
     name,
     email,
@@ -78,6 +83,14 @@ export class UsersRepository implements IUsersRepository {
 
     if (index !== -1) {
       users[index].active = false;
+    }
+  }
+
+  updateJobItens(id: string, job: Job): void {
+    const index = users.findIndex((user) => user.id === id);
+
+    if (index !== -1) {
+      users[index].JobList.push(job);
     }
   }
 }

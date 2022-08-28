@@ -23,6 +23,7 @@ export class User {
       this.id = uuid();
       this.CreatedAt = new Date();
       this.active = true;
+      this.JobList = [];
     }
   }
 }

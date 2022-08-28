@@ -4,6 +4,7 @@ import {
   BaseHttpController,
   controller,
   httpDelete,
+  httpGet,
   httpPost,
   httpPut,
   interfaces,
@@ -14,9 +15,11 @@ import { IAuthenticateUserUseCase } from "../../core/useCases/users/auth/IAuthen
 import { ICreateUserUseCase } from "../../core/useCases/users/createUser/ICreateUserUseCase";
 import { IInactivateUserUseCase } from "../../core/useCases/users/deleteUser/IInactivateUserUseCase";
 import { IEditUserProfileUseCase } from "../../core/useCases/users/editUser/IEditUserProfileUseCase";
+import { IGetUserByIdUseCase } from "../../core/useCases/users/getUseById/IGetUserByIdUseCase";
 import { TYPES } from "../../types";
 import { AuthRequestDTO } from "../dtos/auth/AuthRequestDTO";
 import { CreateUserRequestDTO } from "../dtos/users/CreateUserRequestDTO";
+import { GetUserByIdRequestDTO } from "../dtos/users/GetUserByIdRequestDTO";
 import { InactivateUserRequestDTO } from "../dtos/users/InactivateUserRequestDTO";
 import { UpdateUserProfileRequestDTO } from "../dtos/users/UpdateUserProfileRequestDTO";
 import { ValidateDTOMiddleware } from "../middlewares/ValidateDTOMiddleware";
@@ -27,6 +30,7 @@ export class UsersController extends BaseHttpController implements interfaces.Co
   private readonly _editUserProfileUseCase: IEditUserProfileUseCase;
   private readonly _inactivateUserUseCase: IInactivateUserUseCase;
   private readonly _authenticateUserUseCase: IAuthenticateUserUseCase;
+  private readonly _getUserByIdUseCase: IGetUserByIdUseCase;
 
   constructor(
     @inject(TYPES.ICreateUserUseCase)
@@ -37,18 +41,26 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     inactivateUserUseCase: IInactivateUserUseCase,
     @inject(TYPES.IAuthenticateUserUseCase)
     authenticateUserUseCase: IAuthenticateUserUseCase,
+    @inject(TYPES.IGetUserByIdUseCase)
+    getUserByIdUseCase: IGetUserByIdUseCase,
   ) {
     super();
     this._createUserUseCase = createUserUseCase;
     this._editUserProfileUseCase = updateUserUseCase;
     this._inactivateUserUseCase = inactivateUserUseCase;
     this._authenticateUserUseCase = authenticateUserUseCase;
+    this._getUserByIdUseCase = getUserByIdUseCase;
+  }
+
+  @httpGet("/:id", ValidateDTOMiddleware(GetUserByIdRequestDTO.Params, "params"))
+  async getById(@requestParam("id") params: GetUserByIdRequestDTO.Params): Promise<interfaces.IHttpActionResult> {
+    const result = await this._getUserByIdUseCase.execute(params.toString());
+    return this.json(result);
   }
 
   @httpPost("/", ValidateDTOMiddleware(CreateUserRequestDTO.Body, "body"))
   async create(@requestBody() body: CreateUserRequestDTO.Body): Promise<interfaces.IHttpActionResult> {
     const result = await this._createUserUseCase.execute(body);
-
     return this.json(result);
   }
 

@@ -1,8 +1,8 @@
 import { IsNotEmpty, IsUUID } from "class-validator";
 
-export namespace InactivateUserRequest {
+export namespace DeleteJobRequestDTO {
   export class Params {
-    @IsUUID("4")
+    @IsUUID()
     @IsNotEmpty()
     id: string;
   }

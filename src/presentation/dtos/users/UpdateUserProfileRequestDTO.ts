@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, IsNumber, IsString, IsUUID, MaxLength } from "class-validator";
-export namespace UpdateUserProfileRequest {
+export namespace UpdateUserProfileRequestDTO {
   export class Body {
     @IsString()
     @IsNotEmpty()

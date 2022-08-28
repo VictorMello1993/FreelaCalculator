@@ -1,18 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString } from "class-validator";
-
-export namespace AuthInputModel {
-  export class Body {
-    @IsString()
-    @IsEmail()
-    @IsNotEmpty()
-    email: string;
-
-    @IsString()
-    @IsNotEmpty()
-    password: string;
-  }
-
-  export class Headers {
-    authorization: string;
-  }
+export class AuthInputModel {
+  email: string;
+  password: string;
 }

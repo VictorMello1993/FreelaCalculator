@@ -15,14 +15,14 @@ export class EditJobUseCase {
     this._jobsRepository = jobsRepository;
   }
 
-  execute({ name, DailyHours, TotalHours, UserId }: EditJobInputModel.Body, { id }: EditJobInputModel.Params) {
+  execute({ id, name, DailyHours, TotalHours, UserId }: EditJobInputModel) {
     const job = this._jobsRepository.findById(id);
 
     if (!job) {
       throw new AppError("Job not found", 404);
     }
 
-    const result = this._jobsRepository.update({ name, DailyHours, TotalHours, UserId }, { id });
+    const result = this._jobsRepository.update({ id, name, DailyHours, TotalHours, UserId });
 
     return result;
   }

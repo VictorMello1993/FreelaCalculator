@@ -1,4 +1,3 @@
-import { EditJobInputModel } from "./../../core/dtos/jobs/EditJobInputModel";
 import { inject } from "inversify";
 import {
   BaseHttpController,
@@ -11,16 +10,19 @@ import {
   requestBody,
   requestParam,
 } from "inversify-express-utils";
-import { CreateJobInputModel } from "../../core/dtos/jobs/CreateJobInputModel";
 import { Job } from "../../core/entities/Job";
 import { CreateJobUseCase } from "../../core/useCases/jobs/createJob/CreateJobUseCase";
 import { TYPES } from "../../types";
 import { EditJobUseCase } from "../../core/useCases/jobs/editJob/EditJobUseCase";
 import { ValidateDTOMiddleware } from "../middlewares/ValidateDTOMiddleware";
 import { EnsureAuthenticatedDTOMiddleware } from "../middlewares/EnsureAuthenticatedDTOMiddleware";
-import { AuthInputModel } from "../../core/dtos/auth/auth";
+
 import { DeleteJobUseCase } from "../../core/useCases/jobs/deleteJob/DeleteJobUseCase";
-import { DeleteJobInputModel } from "../../core/dtos/jobs/DeleteJobInputModel";
+
+import { AuthRequestDTO } from "../dtos/auth/AuthRequestDTO";
+import { CreateJobRequestDTO } from "../dtos/jobs/CreateJobRequestDTO";
+import { EditJobRequestDTO } from "../dtos/jobs/EditJobRequestDTO";
+import { DeleteJobRequestDTO } from "../dtos/jobs/DeleteJobRequestDTO";
 
 @controller("/jobs")
 export class JobsController extends BaseHttpController implements interfaces.Controller {
@@ -44,10 +46,10 @@ export class JobsController extends BaseHttpController implements interfaces.Con
 
   @httpPost(
     "/",
-    EnsureAuthenticatedDTOMiddleware(AuthInputModel.Headers, "headers"),
-    ValidateDTOMiddleware(CreateJobInputModel.Body, "body"),
+    EnsureAuthenticatedDTOMiddleware(AuthRequestDTO.Headers, "headers"),
+    ValidateDTOMiddleware(CreateJobRequestDTO.Body, "body"),
   )
-  async create(@requestBody() body: CreateJobInputModel.Body, @request() req: CreateJobInputModel.Request) {
+  async create(@requestBody() body: CreateJobRequestDTO.Body, @request() req: CreateJobRequestDTO.Request) {
     const { id } = req.user;
     const { name, DailyHours, TotalHours } = body;
 
@@ -57,35 +59,33 @@ export class JobsController extends BaseHttpController implements interfaces.Con
 
   @httpPut(
     "/:id",
-    EnsureAuthenticatedDTOMiddleware(AuthInputModel.Headers, "headers"),
-    ValidateDTOMiddleware(EditJobInputModel.Body, "body"),
-    ValidateDTOMiddleware(EditJobInputModel.Params, "params"),
+    EnsureAuthenticatedDTOMiddleware(AuthRequestDTO.Headers, "headers"),
+    ValidateDTOMiddleware(EditJobRequestDTO.Body, "body"),
+    ValidateDTOMiddleware(EditJobRequestDTO.Params, "params"),
   )
   async update(
-    @requestBody() body: EditJobInputModel.Body,
-    @requestParam("id") params: EditJobInputModel.Params,
-    @request() req: EditJobInputModel.Request,
+    @requestBody() body: EditJobRequestDTO.Body,
+    @requestParam("id") params: EditJobRequestDTO.Params,
+    @request() req: EditJobRequestDTO.Request,
   ) {
     const { name, DailyHours, TotalHours } = body;
     const { id } = req.user;
 
-    const result: Job = this._editJobUseCase.execute(
-      {
-        name,
-        DailyHours,
-        TotalHours,
-        UserId: id,
-      },
-      { id: params.toString() },
-    );
+    const result: Job = this._editJobUseCase.execute({
+      id: params.toString(),
+      name,
+      DailyHours,
+      TotalHours,
+      UserId: id,
+    });
 
     return this.json(result);
   }
 
   @httpDelete(
     "/:id",
-    EnsureAuthenticatedDTOMiddleware(AuthInputModel.Headers, "headers"),
-    ValidateDTOMiddleware(DeleteJobInputModel.Params, "params"),
+    EnsureAuthenticatedDTOMiddleware(AuthRequestDTO.Headers, "headers"),
+    ValidateDTOMiddleware(DeleteJobRequestDTO.Params, "params"),
   )
   delete(@requestParam("id") params: string) {
     this._deleteJobUseCase.execute(params);

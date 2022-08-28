@@ -18,7 +18,7 @@ export class AuthenticateUserUseCase {
     this._usersRepository = usersRepository;
   }
 
-  async execute({ email, password }: AuthInputModel.Body): Promise<TokenModel> {
+  async execute({ email, password }: AuthInputModel): Promise<TokenModel> {
     const user = this._usersRepository.findByEmail(email);
 
     if (!user) {

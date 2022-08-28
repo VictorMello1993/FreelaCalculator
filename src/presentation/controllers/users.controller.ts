@@ -10,15 +10,15 @@ import {
   requestBody,
   requestParam,
 } from "inversify-express-utils";
-import { AuthInputModel } from "../../core/dtos/auth/auth";
 import { AuthenticateUserUseCase } from "../../core/useCases/users/auth/AuthenticateUserUseCase";
 import { CreateUserUseCase } from "../../core/useCases/users/createUser/CreateUserUseCase";
 import { InactivateUserUseCase } from "../../core/useCases/users/deleteUser/InactivateUserUseCase";
 import { EditUserProfileUseCase } from "../../core/useCases/users/editUser/EditUserProfileUseCase";
 import { TYPES } from "../../types";
-import { CreateUserRequest } from "../dtos/users/CreateUserRequest";
-import { InactivateUserRequest } from "../dtos/users/InactivateUserRequest";
-import { UpdateUserProfileRequest } from "../dtos/users/UpdateUserProfileRequest";
+import { AuthRequestDTO } from "../dtos/auth/AuthRequestDTO";
+import { CreateUserRequestDTO } from "../dtos/users/CreateUserRequestDTO";
+import { InactivateUserRequestDTO } from "../dtos/users/InactivateUserRequestDTO";
+import { UpdateUserProfileRequestDTO } from "../dtos/users/UpdateUserProfileRequestDTO";
 import { ValidateDTOMiddleware } from "../middlewares/ValidateDTOMiddleware";
 
 @controller("/users")
@@ -45,8 +45,8 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     this._authenticateUserUseCase = authenticateUserUseCase;
   }
 
-  @httpPost("/", ValidateDTOMiddleware(CreateUserRequest.Body, "body"))
-  async create(@requestBody() body: CreateUserRequest.Body): Promise<interfaces.IHttpActionResult> {
+  @httpPost("/", ValidateDTOMiddleware(CreateUserRequestDTO.Body, "body"))
+  async create(@requestBody() body: CreateUserRequestDTO.Body): Promise<interfaces.IHttpActionResult> {
     const result = await this._createUserUseCase.execute(body);
 
     return this.json(result);
@@ -54,8 +54,8 @@ export class UsersController extends BaseHttpController implements interfaces.Co
 
   @httpPut("/:id")
   async update(
-    @requestParam("id") params: UpdateUserProfileRequest.Params,
-    @requestBody() body: UpdateUserProfileRequest.Body,
+    @requestParam("id") params: UpdateUserProfileRequestDTO.Params,
+    @requestBody() body: UpdateUserProfileRequestDTO.Body,
   ): Promise<interfaces.IHttpActionResult> {
     const result = await this._editUserProfileUseCase.execute({
       id: params.toString(),
@@ -70,14 +70,14 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     return this.json(result);
   }
 
-  @httpDelete("/:id", ValidateDTOMiddleware(InactivateUserRequest.Params, "params"))
+  @httpDelete("/:id", ValidateDTOMiddleware(InactivateUserRequestDTO.Params, "params"))
   async delete(@requestParam("id") params: string): Promise<void> {
     const result = this._inactivateUserUseCase.execute(params);
     this.json(result);
   }
 
-  @httpPost("/login", ValidateDTOMiddleware(AuthInputModel.Body, "body"))
-  async auth(@requestBody() body: AuthInputModel.Body) {
+  @httpPost("/login", ValidateDTOMiddleware(AuthRequestDTO.Body, "body"))
+  async auth(@requestBody() body: AuthRequestDTO.Body) {
     const token = await this._authenticateUserUseCase.execute(body);
     return this.json(token);
   }

@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 import { AppError } from "../../../../errors/AppError";
 import { TYPES } from "../../../../types";
 import { CreateJobInputModel } from "../../../dtos/jobs/CreateJobInputModel";
+import { JobMap } from "../../../mappers/JobMap";
 import { IJobsRepository } from "../../../repositories/IJobsRepository";
 
 @injectable()
@@ -15,14 +16,17 @@ export class CreateJobUseCase {
     this._jobsRepository = jobsRepository;
   }
 
-  execute({ name, DailyHours, TotalHours, UserId }: CreateJobInputModel.Body) {
+  execute({ name, DailyHours, TotalHours, UserId }: CreateJobInputModel) {
     const job = this._jobsRepository.findByName(name);
 
     if (job) {
       throw new AppError("Job already exists");
     }
 
-    const result = this._jobsRepository.create({ name, DailyHours, TotalHours, UserId });
-    return result;
+    const newJob = this._jobsRepository.create({ name, DailyHours, TotalHours, UserId });
+
+    const jobDTO = JobMap.toDTO(newJob);
+
+    return jobDTO;
   }
 }

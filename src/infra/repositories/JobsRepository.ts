@@ -13,7 +13,7 @@ export class JobsRepository implements IJobsRepository {
     job.name = data.name;
     job.DailyHours = data.DailyHours;
     job.TotalHours = data.TotalHours;
-    job.userId = data.UserId;
+    job.UserId = data.UserId;
 
     jobs.push(job);
 
@@ -27,7 +27,7 @@ export class JobsRepository implements IJobsRepository {
       jobs[index].name = name;
       jobs[index].DailyHours = DailyHours;
       jobs[index].TotalHours = TotalHours;
-      jobs[index].userId = UserId;
+      jobs[index].UserId = UserId;
       jobs[index].UpdatedAt = new Date();
 
       return jobs[index];

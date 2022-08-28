@@ -10,15 +10,12 @@ import {
   requestBody,
   requestParam,
 } from "inversify-express-utils";
-import { Job } from "../../core/entities/Job";
 import { CreateJobUseCase } from "../../core/useCases/jobs/createJob/CreateJobUseCase";
 import { TYPES } from "../../types";
 import { EditJobUseCase } from "../../core/useCases/jobs/editJob/EditJobUseCase";
 import { ValidateDTOMiddleware } from "../middlewares/ValidateDTOMiddleware";
 import { EnsureAuthenticatedDTOMiddleware } from "../middlewares/EnsureAuthenticatedDTOMiddleware";
-
 import { DeleteJobUseCase } from "../../core/useCases/jobs/deleteJob/DeleteJobUseCase";
-
 import { AuthRequestDTO } from "../dtos/auth/AuthRequestDTO";
 import { CreateJobRequestDTO } from "../dtos/jobs/CreateJobRequestDTO";
 import { EditJobRequestDTO } from "../dtos/jobs/EditJobRequestDTO";
@@ -53,7 +50,7 @@ export class JobsController extends BaseHttpController implements interfaces.Con
     const { id } = req.user;
     const { name, DailyHours, TotalHours } = body;
 
-    const result: Job = this._createJobUseCase.execute({ name, DailyHours, TotalHours, UserId: id });
+    const result = this._createJobUseCase.execute({ name, DailyHours, TotalHours, UserId: id });
     return this.json(result);
   }
 
@@ -71,7 +68,7 @@ export class JobsController extends BaseHttpController implements interfaces.Con
     const { name, DailyHours, TotalHours } = body;
     const { id } = req.user;
 
-    const result: Job = this._editJobUseCase.execute({
+    const result = this._editJobUseCase.execute({
       id: params.toString(),
       name,
       DailyHours,

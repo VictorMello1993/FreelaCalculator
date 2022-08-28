@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 import { AppError } from "../../../../errors/AppError";
 import { TYPES } from "../../../../types";
 import { EditJobInputModel } from "../../../dtos/jobs/EditJobInputModel";
+import { JobMap } from "../../../mappers/JobMap";
 import { IJobsRepository } from "../../../repositories/IJobsRepository";
 
 @injectable()
@@ -22,8 +23,10 @@ export class EditJobUseCase {
       throw new AppError("Job not found", 404);
     }
 
-    const result = this._jobsRepository.update({ id, name, DailyHours, TotalHours, UserId });
+    const jobEdited = this._jobsRepository.update({ id, name, DailyHours, TotalHours, UserId });
 
-    return result;
+    const jobDTO = JobMap.toDTO(jobEdited);
+
+    return jobDTO;
   }
 }

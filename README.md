@@ -39,4 +39,48 @@
 - [x] Criação de DTOs como modelo de saída em vez de utilizar entidades nos controllers
 
 
+## Executando o projeto
+
+1. Baixe o repositório
+```sh
+git clone https://github.com/VictorMello1993/FreelaCalculator.git
+```
+
+2. Abra a IDE e instale as dependências do projeto
+```
+#yarn
+yarn add
+
+#npm
+npm install
+```
+
+3. Abra o servidor executando o seguinte comando:
+
+```
+#yarn
+yarn dev
+
+#npm
+npm run dev
+```
+
+## Bibliotecas utilizadas
+* <a href="https://nodejs.org/en/">Node.js</a>
+* <a href="https://www.npmjs.com/package/ts-node-dev">ts-node-dev</a>
+* <a href="https://www.npmjs.com/package/jsonwebtoken">jsonwebtoken</a>
+* <a href="https://www.npmjs.com/package/express">Express</a>
+* <a href="https://www.npmjs.com/package/bcryptjs">bcryptjs</a>
+* <a href="https://www.npmjs.com/package/dotenv">dotenv</a>
+* <a href="https://www.npmjs.com/package/uuid">uuid</a>
+* <a href="https://www.npmjs.com/package/typescript">Typescript</a>
+* <a href="https://www.npmjs.com/package/eslint">eslint</a>
+* <a href="https://www.npmjs.com/package/prettier">Prettier</a>
+* <a href="https://www.npmjs.com/package/inversify">Inversify</a>
+* <a href="https://www.npmjs.com/package/class-validator">class-validator</a>
+* <a href="https://www.npmjs.com/package/class-transformer">class-transformer</a>
+* <a href="https://www.npmjs.com/package/reflect-metadata">reflect-metadata</a>
+
+
+
 

@@ -2,8 +2,7 @@
 
 
 ## Diagrama de classe
-![Diagrama de classe](https://user-images.githubusercontent.com/35710766/185277364-12128f49-76cf-4b1d-bb06-61c5106f2b13.jpg)
-
+![Diagrama de classe drawio (2)](https://user-images.githubusercontent.com/35710766/187093068-76653db6-dbc6-4e55-b4a3-46b162493df7.png)
 
 ## Requisitos funcionais
 **Cadastro de usuários (perfil)**

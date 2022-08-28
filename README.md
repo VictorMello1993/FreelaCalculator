@@ -1,6 +1,6 @@
 # Freela Calculator
 
-Calculadora de horas trabalhadas em projetos freelancer.
+Dashboard de projetos freelancer, contando com uma calculadora de horas trabalhadas dos projetos (Jobs) permitindo que o usuário que registrar consiga gerenciá-los. Um usuário poderá cadastrar, editar ou excluir jobs disponíveis em seu dashboard, assim como alterar dados cadastrais ou até mesmo inativar a conta de seu perfil
 
 
 ## Diagrama de classe

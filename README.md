@@ -16,10 +16,10 @@
 
 - [x] Inativação do usuário
 
-- [ ] Autenticação do usuário
+- [x] Autenticação do usuário
 
 **Cadastro de jobs (projetos)**
-- [ ] Usuário deve estar autenticado para cadastrar um job
+- [x] Usuário deve estar autenticado para cadastrar um job
 
 - [x] Cadastro do job
 
@@ -33,7 +33,7 @@
       das horas restantes para vencimento do job (nº de horas dedicadas por dia - total de horas estimadas do job com status em progresso)
       
 ## Requisitos não funcionais
-- [ ] O token deve ter duração de 1 hora
+- [x] O token deve ter duração de 1 hora
 - [x] Criação de middlewares de erros
 - [x] Criação de middlewares para validação de DTOs
 - [ ] Criação de DTOs como modelo de saída em vez de utilizar entidades nos controllers

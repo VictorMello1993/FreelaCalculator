@@ -13,13 +13,14 @@ export class JobsRepository implements IJobsRepository {
     job.name = data.name;
     job.DailyHours = data.DailyHours;
     job.TotalHours = data.TotalHours;
+    job.userId = data.UserId;
 
     jobs.push(job);
 
     return job;
   }
 
-  update({ name, DailyHours, TotalHours }: EditJobInputModel.Body, { id }: EditJobInputModel.Params): Job {
+  update({ name, DailyHours, TotalHours, UserId }: EditJobInputModel.Body, { id }: EditJobInputModel.Params): Job {
     const index = jobs.findIndex((job) => job.id === id);
 
     if (index !== -1) {
@@ -40,5 +41,15 @@ export class JobsRepository implements IJobsRepository {
 
   findByName(name: string): Job {
     return jobs.find((job) => job.name === name);
+  }
+
+  delete(id: string): void {
+    const index = jobs.findIndex((job) => job.id === id);
+
+    if (index !== -1) {
+      jobs.splice(index, 1);
+    }
+
+    console.log(jobs.length);
   }
 }

@@ -15,14 +15,14 @@ export class CreateJobUseCase {
     this._jobsRepository = jobsRepository;
   }
 
-  execute({ name, DailyHours, TotalHours }: CreateJobInputModel.Body) {
+  execute({ name, DailyHours, TotalHours, UserId }: CreateJobInputModel.Body) {
     const job = this._jobsRepository.findByName(name);
 
     if (job) {
       throw new AppError("Job already exists");
     }
 
-    const result = this._jobsRepository.create({ name, DailyHours, TotalHours });
+    const result = this._jobsRepository.create({ name, DailyHours, TotalHours, UserId });
     return result;
   }
 }

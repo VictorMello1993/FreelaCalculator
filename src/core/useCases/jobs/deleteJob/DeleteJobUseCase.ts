@@ -1,11 +1,10 @@
 import { inject, injectable } from "inversify";
 import { AppError } from "../../../../errors/AppError";
 import { TYPES } from "../../../../types";
-import { EditJobInputModel } from "../../../dtos/jobs/EditJobInputModel";
 import { IJobsRepository } from "../../../repositories/IJobsRepository";
 
 @injectable()
-export class EditJobUseCase {
+export class DeleteJobUseCase {
   private readonly _jobsRepository: IJobsRepository;
 
   constructor(
@@ -15,15 +14,13 @@ export class EditJobUseCase {
     this._jobsRepository = jobsRepository;
   }
 
-  execute({ name, DailyHours, TotalHours, UserId }: EditJobInputModel.Body, { id }: EditJobInputModel.Params) {
-    const job = this._jobsRepository.findById(id);
+  execute(id: string) {
+    const job = this.jobsRepository.findById(id);
 
     if (!job) {
-      throw new AppError("Job not found", 404);
+      throw new AppError("Job not found");
     }
 
-    const result = this._jobsRepository.update({ name, DailyHours, TotalHours, UserId }, { id });
-
-    return result;
+    this._jobsRepository.delete(id);
   }
 }

@@ -7,4 +7,5 @@ export interface IJobsRepository {
   findById(id: string): Job;
   update(data: EditJobInputModel.Body, id: EditJobInputModel.Params): Job;
   findByName(name: string): Job;
+  delete(id: string): void;
 }

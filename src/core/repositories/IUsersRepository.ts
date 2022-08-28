@@ -25,5 +25,5 @@ export interface IUsersRepository {
     { id }: UpdateUserInputModel.Params,
   ): User;
 
-  inactivateUser(id);
+  inactivateUser(id: string);
 }

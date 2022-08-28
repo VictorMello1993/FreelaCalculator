@@ -1,4 +1,5 @@
 import { v4 as uuid } from "uuid";
+import { Job } from "./Job";
 
 export class User {
   id: string;
@@ -15,6 +16,7 @@ export class User {
   HoursPerDay: number;
   ValueHour: number;
   active: boolean;
+  JobList: Job[];
 
   constructor() {
     if (!this.id) {

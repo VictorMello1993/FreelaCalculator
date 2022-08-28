@@ -7,6 +7,7 @@ export class Job {
   TotalHours: number;
   CreatedAt: Date;
   UpdatedAt: Date;
+  userId: string;
 
   constructor() {
     if (!this.id) {

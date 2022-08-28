@@ -14,5 +14,11 @@ export namespace CreateJobInputModel {
     @IsNumber()
     @IsNotEmpty()
     TotalHours: number;
+
+    UserId: string;
+  }
+
+  export class Request {
+    user: any;
   }
 }

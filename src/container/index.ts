@@ -2,6 +2,7 @@ import { Container } from "inversify";
 import { IJobsRepository } from "../core/repositories/IJobsRepository";
 import { IUsersRepository } from "../core/repositories/IUsersRepository";
 import { CreateJobUseCase } from "../core/useCases/jobs/createJob/CreateJobUseCase";
+import { DeleteJobUseCase } from "../core/useCases/jobs/deleteJob/DeleteJobUseCase";
 import { EditJobUseCase } from "../core/useCases/jobs/editJob/EditJobUseCase";
 import { AuthenticateUserUseCase } from "../core/useCases/users/auth/AuthenticateUserUseCase";
 import { CreateUserUseCase } from "../core/useCases/users/createUser/CreateUserUseCase";
@@ -21,3 +22,4 @@ container.bind<EditUserProfileUseCase>(TYPES.EditUserProfileUseCase).to(EditUser
 container.bind<InactivateUserUseCase>(TYPES.InactivateUserUseCase).to(InactivateUserUseCase);
 container.bind<EditJobUseCase>(TYPES.EditJobUseCase).to(EditJobUseCase);
 container.bind<AuthenticateUserUseCase>(TYPES.AuthenticateUserUseCase).to(AuthenticateUserUseCase);
+container.bind<DeleteJobUseCase>(TYPES.DeleteJobUseCase).to(DeleteJobUseCase);

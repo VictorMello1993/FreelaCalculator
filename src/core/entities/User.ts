@@ -16,6 +16,7 @@ export class User {
   HoursPerDay: number;
   ValueHour: number;
   active: boolean;
+  Address: any;
   JobList: Job[];
 
   constructor() {

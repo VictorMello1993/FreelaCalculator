@@ -15,6 +15,7 @@ export class UsersRepository implements IUsersRepository {
     BirthDate,
     MonthlyBudget,
     ZipCode,
+    Address,
     VacationPerYear,
     DaysPerWeek,
     HoursPerDay,
@@ -32,6 +33,7 @@ export class UsersRepository implements IUsersRepository {
     newUser.DaysPerWeek = DaysPerWeek;
     newUser.HoursPerDay = HoursPerDay;
     newUser.ValueHour = ValueHour;
+    newUser.Address = Address;
 
     users.push(newUser);
 

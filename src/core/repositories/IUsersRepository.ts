@@ -11,6 +11,7 @@ export interface IUsersRepository {
     BirthDate,
     MonthlyBudget,
     ZipCode,
+    Address,
     VacationPerYear,
     DaysPerWeek,
     HoursPerDay,

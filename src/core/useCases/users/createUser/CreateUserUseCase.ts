@@ -7,6 +7,7 @@ import { CalculateValueHour } from "../../../services/CalculateValueHour";
 import { UserMap } from "../../../mappers/UserMap";
 import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
 import { ICreateUserUseCase } from "./ICreateUserUseCase";
+import { FindAddress } from "../../../services/FindAddress";
 
 @injectable()
 export class CreateUserUseCase implements ICreateUserUseCase {
@@ -37,8 +38,12 @@ export class CreateUserUseCase implements ICreateUserUseCase {
     }
 
     const valueHour = CalculateValueHour(VacationPerYear, HoursPerDay, DaysPerWeek, MonthlyBudget);
-
     const hashedPassword = await generateHash(password);
+    const address = await FindAddress(ZipCode);
+
+    if (address.erro) {
+      throw new AppError("Couldn't find full address with this ZipCode. Please, check if it is correct");
+    }
 
     const newUser = this._usersRepository.create({
       name,
@@ -51,6 +56,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
       DaysPerWeek,
       HoursPerDay,
       ValueHour: valueHour,
+      Address: address,
     });
 
     return UserMap.toDTO(newUser);

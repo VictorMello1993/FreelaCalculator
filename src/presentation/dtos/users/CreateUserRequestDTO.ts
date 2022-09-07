@@ -1,4 +1,14 @@
-import { IsEmail, IsISO8601, IsNotEmpty, IsNumber, IsString, IsUUID, MaxLength } from "class-validator";
+import {
+  IsEmail,
+  IsISO8601,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUUID,
+  Length,
+  Matches,
+  MaxLength,
+} from "class-validator";
 
 export namespace CreateUserRequestDTO {
   export class Body {
@@ -26,6 +36,8 @@ export namespace CreateUserRequestDTO {
 
     @IsString()
     @IsNotEmpty()
+    @Length(8, 8)
+    @Matches(/^[0-9]+/, { message: "ZipCode must be only number" })
     ZipCode: string;
 
     @IsNumber()
@@ -42,7 +54,7 @@ export namespace CreateUserRequestDTO {
   }
 
   export class Params {
-    @IsUUID()
+    @IsUUID("4")
     @IsNotEmpty()
     id: string;
   }

@@ -9,7 +9,7 @@ Dashboard de projetos freelancer, contando com uma calculadora de horas trabalha
 ## Requisitos funcionais
 **Cadastro de usuários (perfil)**
 
-- [ ] Criar um serviço que consome API de consulta de CEP para buscar o endereço
+- [x] Criar um serviço que consome API de consulta de CEP para buscar o endereço
 
 - [x] Deve ser possível cadastrar usuário com o valor das horas calculado com base na proporção entre a estimativa de quanto deseja ganhar por mês, número de dias             trabalhados por semana, horas trabalhadas por dia menos as férias
 
@@ -81,6 +81,7 @@ npm run dev
 * <a href="https://www.npmjs.com/package/class-validator">class-validator</a>
 * <a href="https://www.npmjs.com/package/class-transformer">class-transformer</a>
 * <a href="https://www.npmjs.com/package/reflect-metadata">reflect-metadata</a>
+* <a href="https://www.npmjs.com/package/axios">Axios</a>
 
 ## Endpoints para importar
 

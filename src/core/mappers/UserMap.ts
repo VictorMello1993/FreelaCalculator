@@ -1,3 +1,5 @@
+import { instanceToInstance } from "class-transformer";
+import { UserViewModel } from "../dtos/users/UserViewModel";
 import { User } from "../entities/User";
 
 export class UserMap {
@@ -5,7 +7,6 @@ export class UserMap {
     id,
     name,
     email,
-    password,
     BirthDate,
     MonthlyBudget,
     ZipCode,
@@ -15,10 +16,8 @@ export class UserMap {
     HoursPerDay,
     ValueHour,
     CreatedAt,
-    UpdatedAt,
-    JobList,
-  }: User) {
-    return {
+  }: User): UserViewModel {
+    const user = instanceToInstance({
       id,
       name,
       email,
@@ -31,8 +30,8 @@ export class UserMap {
       HoursPerDay,
       ValueHour,
       CreatedAt,
-      UpdatedAt,
-      JobList,
-    };
+    });
+
+    return user;
   }
 }

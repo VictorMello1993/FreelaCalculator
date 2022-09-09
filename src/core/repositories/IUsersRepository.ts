@@ -11,12 +11,11 @@ export interface IUsersRepository {
     BirthDate,
     MonthlyBudget,
     ZipCode,
-    Address,
     VacationPerYear,
     DaysPerWeek,
     HoursPerDay,
     ValueHour,
-  }: CreateUserInputModel): User;
+  }: CreateUserInputModel): Promise<User>;
 
   findByEmail(email: string): User;
 

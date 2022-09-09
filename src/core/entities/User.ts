@@ -16,8 +16,8 @@ export class User {
   HoursPerDay: number;
   ValueHour: number;
   active: boolean;
-  Address: any;
   JobList: Job[];
+  Address: any;
 
   constructor() {
     if (!this.id) {

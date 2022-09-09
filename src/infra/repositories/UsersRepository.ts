@@ -8,7 +8,7 @@ import { users } from "../database/db";
 
 @injectable()
 export class UsersRepository implements IUsersRepository {
-  create({
+  async create({
     name,
     email,
     password,
@@ -20,7 +20,7 @@ export class UsersRepository implements IUsersRepository {
     DaysPerWeek,
     HoursPerDay,
     ValueHour,
-  }: CreateUserInputModel): User {
+  }: CreateUserInputModel): Promise<User> {
     const newUser = new User();
 
     newUser.name = name;

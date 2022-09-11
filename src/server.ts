@@ -6,6 +6,7 @@ import "./presentation/controllers/users.controller";
 import "./presentation/controllers/jobs.controller";
 import { container } from "./container";
 import { AppError } from "./errors/AppError";
+import mongoose from "mongoose";
 
 export class App {
   constructor() {
@@ -34,6 +35,22 @@ export class App {
 
     const app = server.build();
 
+    mongoose
+      .connect(process.env.MONGO_DB_URL)
+      .then(() => {
+        console.log("MongoDB connected successfully!");
+
+        const userSchema = new mongoose.Schema({
+          name: { type: String },
+          age: { type: Number },
+        });
+
+        const User = mongoose.model("User", userSchema);
+
+        const fulano = new User({ name: "Fulano", age: 28 });
+        fulano.save().then(() => console.log("Oi, meu nome é fulano"));
+      })
+      .catch((err) => console.log(err));
     app.listen(port, () => console.log(`Server is running at ${url}${port}`));
   }
 }

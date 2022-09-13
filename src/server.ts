@@ -36,7 +36,11 @@ export class App {
     const app = server.build();
 
     mongoose
-      .connect(process.env.MONGO_DB_URL)
+      .connect(process.env.MONGO_DB_URL, {
+        dbName: process.env.MONGO_DB_DATABASE,
+        user: process.env.MONGO_DB_USER,
+        pass: process.env.MONGO_DB_PASSWORD,
+      })
       .then(() => {
         console.log("MongoDB connected successfully!");
 
@@ -45,10 +49,18 @@ export class App {
           age: { type: Number },
         });
 
+        const commentSchema = new mongoose.Schema({
+          message: { type: String },
+        });
+
         const User = mongoose.model("User", userSchema);
+        const Comments = mongoose.model("Comment", commentSchema);
 
         const fulano = new User({ name: "Fulano", age: 28 });
-        fulano.save().then(() => console.log("Oi, meu nome é fulano"));
+        const firstComment = new Comments({ message: "Olá mundo" });
+
+        fulano.save();
+        firstComment.save();
       })
       .catch((err) => console.log(err));
     app.listen(port, () => console.log(`Server is running at ${url}${port}`));

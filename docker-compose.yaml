@@ -1,22 +1,19 @@
 version: "3.9"
 services:
   mongo:
-    image: mongo:latest
+    image: mongo
     container_name: freela-calc-db
     restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE}
     ports:
-      - ${MONGO_DB_PORT_LOCAL}:${MONGO_DB_PORT}
+      - ${MONGO_DB_PORT_LOCAL}:27017
 
-  mongo-express:
-    image: mongo-express:latest
-    container_name: mongo-express-freela-calc-db
-    restart: always
-    ports: 
-      - ${MONGO_EXPRESS_PORT}:${MONGO_EXPRESS_PORT}
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_DB_USER}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_DB_PASSWORD}
-     
+    volumes:
+      - dbdata:/usr/database/mongodb
+      
+volumes:
+  dbdata:
+    driver: 'local'

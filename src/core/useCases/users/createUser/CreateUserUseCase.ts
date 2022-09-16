@@ -41,10 +41,6 @@ export class CreateUserUseCase implements ICreateUserUseCase {
     const hashedPassword = await generateHash(password);
     const address = await FindAddress(ZipCode);
 
-    if (address.erro) {
-      throw new AppError("Couldn't find full address with this ZipCode. Please, check if it is correct");
-    }
-
     const newUser = await this._usersRepository.create({
       name,
       email,

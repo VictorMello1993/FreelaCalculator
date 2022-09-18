@@ -20,14 +20,14 @@ export class DeleteJobUseCase implements IDeleteJobUseCase {
     this._usersRepository = usersRepository;
   }
 
-  execute(id: string) {
-    const job = this._jobsRepository.findById(id);
+  async execute(id: string) {
+    const job = await this._jobsRepository.findById(id);
 
     if (!job) {
       throw new AppError("Job not found");
     }
 
-    this._jobsRepository.delete(id);
-    this._usersRepository.deleteJobItem(job.UserId);
+    await this._jobsRepository.delete(id);
+    await this._usersRepository.deleteJobItem(job.UserId);
   }
 }

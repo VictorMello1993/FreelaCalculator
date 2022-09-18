@@ -8,7 +8,7 @@ const jobs: Job[] = [];
 
 @injectable()
 export class JobsRepository implements IJobsRepository {
-  create(data: CreateJobInputModel): Job {
+  async create(data: CreateJobInputModel): Promise<Job> {
     const job = new Job();
 
     job.name = data.name;
@@ -21,7 +21,7 @@ export class JobsRepository implements IJobsRepository {
     return job;
   }
 
-  update({ id, name, DailyHours, TotalHours, UserId }: EditJobInputModel): Job {
+  async update({ id, name, DailyHours, TotalHours, UserId }: EditJobInputModel): Promise<Job> {
     const index = jobs.findIndex((job) => job.id === id);
 
     if (index !== -1) {
@@ -37,15 +37,15 @@ export class JobsRepository implements IJobsRepository {
     return null;
   }
 
-  findById(id: string): Job {
+  async findById(id: string): Promise<Job> {
     return jobs.find((job) => job.id === id);
   }
 
-  findByName(name: string): Job {
+  async findByName(name: string): Promise<Job> {
     return jobs.find((job) => job.name === name);
   }
 
-  delete(id: string): void {
+  async delete(id: string): Promise<void> {
     const index = jobs.findIndex((job) => job.id === id);
 
     if (index !== -1) {

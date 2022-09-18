@@ -2,7 +2,7 @@ import { inject, injectable } from "inversify";
 import { AppError } from "../../../../errors/AppError";
 import { TYPES } from "../../../../types";
 import { UpdateUserInputModel } from "../../../dtos/users/UpdateUserInputModel";
-import { UserMap } from "../../../mappers/UserMap";
+import { UserViewModel } from "../../../dtos/users/UserViewModel";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
 import { CalculateValueHour } from "../../../services/CalculateValueHour";
 import { IEditUserProfileUseCase } from "./IEditUserProfileUseCase";
@@ -26,8 +26,8 @@ export class EditUserProfileUseCase implements IEditUserProfileUseCase {
     VacationPerYear,
     DaysPerWeek,
     HoursPerDay,
-  }: UpdateUserInputModel): Promise<UserMap> {
-    const user = this._usersRepository.findById(id);
+  }: UpdateUserInputModel): Promise<UserViewModel> {
+    const user = await this._usersRepository.findById(id);
 
     if (!user) {
       throw new AppError("User not found", 404);
@@ -35,7 +35,7 @@ export class EditUserProfileUseCase implements IEditUserProfileUseCase {
 
     const valueHour = CalculateValueHour(VacationPerYear, HoursPerDay, DaysPerWeek, MonthlyBudget);
 
-    const updatedUser = this._usersRepository.update({
+    const updatedUser = await this._usersRepository.update({
       id,
       name,
       email,
@@ -46,6 +46,18 @@ export class EditUserProfileUseCase implements IEditUserProfileUseCase {
       ValueHour: valueHour,
     });
 
-    return UserMap.toDTO(updatedUser);
+    return {
+      id,
+      name,
+      email,
+      MonthlyBudget,
+      ZipCode: updatedUser.ZipCode,
+      VacationPerYear,
+      DaysPerWeek,
+      HoursPerDay,
+      ValueHour: updatedUser.ValueHour,
+      UpdatedAt: updatedUser.UpdatedAt,
+      active: updatedUser.active,
+    };
   }
 }

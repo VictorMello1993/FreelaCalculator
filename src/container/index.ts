@@ -18,13 +18,13 @@ import { IEditUserProfileUseCase } from "../core/useCases/users/editUser/IEditUs
 import { GetUserByIdUseCase } from "../core/useCases/users/getUserById/GetUserByIdUseCase";
 import { IGetUserByIdUseCase } from "../core/useCases/users/getUserById/IGetUserByIdUseCase";
 import { JobsRepository } from "../infra/in-memory/repositories/JobsRepository";
-import { UsersRepositoryMongo } from "../infra/mongodb/repositories/UsersRepositoryMongo";
+import { UsersRepository } from "../infra/in-memory/repositories/UsersRepository";
 
 import { TYPES } from "../types";
 
 export const container = new Container();
 
-container.bind<IUsersRepository>(TYPES.IUsersRepository).to(UsersRepositoryMongo);
+container.bind<IUsersRepository>(TYPES.IUsersRepository).to(UsersRepository);
 container.bind<IJobsRepository>(TYPES.IJobsRepository).to(JobsRepository);
 container.bind<ICreateUserUseCase>(TYPES.ICreateUserUseCase).to(CreateUserUseCase);
 container.bind<ICreateJobUseCase>(TYPES.ICreateJobUseCase).to(CreateJobUseCase);

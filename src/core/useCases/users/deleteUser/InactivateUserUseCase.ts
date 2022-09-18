@@ -15,13 +15,13 @@ export class InactivateUserUseCase implements IInactivateUserUseCase {
     this._usersRepository = usersRepository;
   }
 
-  execute(id: string): void {
-    const user = this._usersRepository.findById(id);
+  async execute(id: string): Promise<void> {
+    const user = await this._usersRepository.findById(id);
 
     if (!user) {
       throw new AppError("User not found", 404);
     }
 
-    this._usersRepository.inactivateUser(id);
+    await this._usersRepository.inactivateUser(id);
   }
 }

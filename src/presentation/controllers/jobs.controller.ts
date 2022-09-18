@@ -46,11 +46,14 @@ export class JobsController extends BaseHttpController implements interfaces.Con
     EnsureAuthenticatedDTOMiddleware(AuthRequestDTO.Headers, "headers"),
     ValidateDTOMiddleware(CreateJobRequestDTO.Body, "body"),
   )
-  async create(@requestBody() body: CreateJobRequestDTO.Body, @request() req: CreateJobRequestDTO.Request) {
+  async create(
+    @requestBody() body: CreateJobRequestDTO.Body,
+    @request() req: CreateJobRequestDTO.Request,
+  ): Promise<interfaces.IHttpActionResult> {
     const { id } = req.user;
     const { name, DailyHours, TotalHours } = body;
 
-    const result = this._createJobUseCase.execute({ name, DailyHours, TotalHours, UserId: id });
+    const result = await this._createJobUseCase.execute({ name, DailyHours, TotalHours, UserId: id });
     return this.json(result);
   }
 
@@ -64,11 +67,11 @@ export class JobsController extends BaseHttpController implements interfaces.Con
     @requestBody() body: EditJobRequestDTO.Body,
     @requestParam("id") params: EditJobRequestDTO.Params,
     @request() req: EditJobRequestDTO.Request,
-  ) {
+  ): Promise<interfaces.IHttpActionResult> {
     const { name, DailyHours, TotalHours } = body;
     const { id } = req.user;
 
-    const result = this._editJobUseCase.execute({
+    const result = await this._editJobUseCase.execute({
       id: params.toString(),
       name,
       DailyHours,
@@ -84,7 +87,7 @@ export class JobsController extends BaseHttpController implements interfaces.Con
     EnsureAuthenticatedDTOMiddleware(AuthRequestDTO.Headers, "headers"),
     ValidateDTOMiddleware(DeleteJobRequestDTO.Params, "params"),
   )
-  delete(@requestParam("id") params: string) {
-    this._deleteJobUseCase.execute(params);
+  async delete(@requestParam("id") params: string): Promise<void> {
+    await this._deleteJobUseCase.execute(params);
   }
 }

@@ -72,6 +72,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
       ValueHour: valueHour,
       CreatedAt: newUser.CreatedAt,
       active: newUser.active,
+      JobList: newUser.JobList,
     };
   }
 }

@@ -1,10 +1,11 @@
 import { injectable } from "inversify";
-import { CreateUserInputModel } from "../../core/dtos/users/CreateUserInputModel";
-import { UpdateUserInputModel } from "../../core/dtos/users/UpdateUserInputModel";
-import { Job } from "../../core/entities/Job";
-import { User } from "../../core/entities/User";
-import { IUsersRepository } from "../../core/repositories/IUsersRepository";
-import { users } from "../database/db";
+import { CreateUserInputModel } from "../../../core/dtos/users/CreateUserInputModel";
+import { UpdateUserInputModel } from "../../../core/dtos/users/UpdateUserInputModel";
+import { Job } from "../../../core/entities/Job";
+import { User } from "../../../core/entities/User";
+import { IUsersRepository } from "../../../core/repositories/IUsersRepository";
+
+const users: User[] = [];
 
 @injectable()
 export class UsersRepository implements IUsersRepository {
@@ -33,22 +34,21 @@ export class UsersRepository implements IUsersRepository {
     newUser.DaysPerWeek = DaysPerWeek;
     newUser.HoursPerDay = HoursPerDay;
     newUser.ValueHour = ValueHour;
-    newUser.Address = Address;
 
     users.push(newUser);
 
     return newUser;
   }
 
-  findByEmail(email: string): User {
+  async findByEmail(email: string): Promise<User> {
     return users.find((user) => user.email === email);
   }
 
-  findById(id: string): User {
+  async findById(id: string): Promise<User> {
     return users.find((user) => user.id === id);
   }
 
-  update({
+  async update({
     id,
     name,
     email,
@@ -57,7 +57,7 @@ export class UsersRepository implements IUsersRepository {
     DaysPerWeek,
     HoursPerDay,
     ValueHour,
-  }: UpdateUserInputModel): User {
+  }: UpdateUserInputModel): Promise<User> {
     const index = users.findIndex((user) => user.id === id);
 
     if (index !== -1) {
@@ -76,7 +76,7 @@ export class UsersRepository implements IUsersRepository {
     return null;
   }
 
-  inactivateUser(id: string): void {
+  async inactivateUser(id: string): Promise<void> {
     const index = users.findIndex((user) => user.id === id);
 
     if (index !== -1) {
@@ -84,7 +84,7 @@ export class UsersRepository implements IUsersRepository {
     }
   }
 
-  addJobItem(id: string, job: Job): void {
+  async addJobItem(id: string, job: Job): Promise<void> {
     const index = users.findIndex((user) => user.id === id);
 
     if (index !== -1) {
@@ -92,7 +92,7 @@ export class UsersRepository implements IUsersRepository {
     }
   }
 
-  deleteJobItem(id: string): void {
+  async deleteJobItem(id: string): Promise<void> {
     const index = users.findIndex((user) => user.id === id);
 
     if (index !== -1) {

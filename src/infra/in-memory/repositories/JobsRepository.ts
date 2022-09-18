@@ -1,9 +1,10 @@
 import { injectable } from "inversify";
-import { CreateJobInputModel } from "../../core/dtos/jobs/CreateJobInputModel";
-import { EditJobInputModel } from "../../core/dtos/jobs/EditJobInputModel";
-import { Job } from "../../core/entities/Job";
-import { IJobsRepository } from "../../core/repositories/IJobsRepository";
-import { jobs } from "../database/db";
+import { CreateJobInputModel } from "../../../core/dtos/jobs/CreateJobInputModel";
+import { EditJobInputModel } from "../../../core/dtos/jobs/EditJobInputModel";
+import { Job } from "../../../core/entities/Job";
+import { IJobsRepository } from "../../../core/repositories/IJobsRepository";
+
+const jobs: Job[] = [];
 
 @injectable()
 export class JobsRepository implements IJobsRepository {

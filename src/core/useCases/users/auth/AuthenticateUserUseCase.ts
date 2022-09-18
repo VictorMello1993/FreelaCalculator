@@ -20,7 +20,7 @@ export class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
   }
 
   async execute({ email, password }: AuthInputModel): Promise<TokenModel> {
-    const user = this._usersRepository.findByEmail(email);
+    const user = await this._usersRepository.findByEmail(email);
 
     if (!user) {
       throw new AppError("User or password are invalid", 401);

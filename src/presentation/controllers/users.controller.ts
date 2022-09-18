@@ -69,15 +69,23 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     @requestParam("id") params: UpdateUserProfileRequestDTO.Params,
     @requestBody() body: UpdateUserProfileRequestDTO.Body,
   ): Promise<interfaces.IHttpActionResult> {
-    const result = await this._editUserProfileUseCase.execute({
+    const { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay, ValueHour, ZipCode } = body;
+
+    const requestDTO = {
       id: params.toString(),
-      name: body.name,
-      email: body.email,
-      MonthlyBudget: body.MonthlyBudget,
-      VacationPerYear: body.VacationPerYear,
-      DaysPerWeek: body.DaysPerWeek,
-      HoursPerDay: body.HoursPerDay,
-    });
+      data: {
+        name,
+        email,
+        MonthlyBudget,
+        VacationPerYear,
+        DaysPerWeek,
+        HoursPerDay,
+        ValueHour,
+        ZipCode,
+      },
+    };
+
+    const result = await this._editUserProfileUseCase.execute(requestDTO);
 
     return this.json(result);
   }

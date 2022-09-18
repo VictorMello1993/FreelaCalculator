@@ -16,7 +16,6 @@ export class UsersRepositoryMongo implements IUsersRepository {
   }
 
   async create({
-    id,
     name,
     email,
     password,
@@ -32,7 +31,6 @@ export class UsersRepositoryMongo implements IUsersRepository {
     active,
   }: CreateUserInputModel): Promise<User> {
     const dataModel = {
-      id,
       name,
       email,
       password,
@@ -48,10 +46,10 @@ export class UsersRepositoryMongo implements IUsersRepository {
       active,
     };
 
-    await new this._userDbModel(dataModel).save();
+    const result = await new this._userDbModel(dataModel).save();
 
     return User.build(
-      id,
+      result._id.toString(),
       name,
       email,
       password,
@@ -73,24 +71,80 @@ export class UsersRepositoryMongo implements IUsersRepository {
   }
 
   async findById(id: string): Promise<User> {
-    return await this._userDbModel.findOne({ _id: id });
+    const result = await this._userDbModel.findOne({ id });
+
+    if (result) {
+      const {
+        name,
+        email,
+        password,
+        BirthDate,
+        CreatedAt,
+        UpdatedAt,
+        MonthlyBudget,
+        ZipCode,
+        VacationPerYear,
+        DaysPerWeek,
+        HoursPerDay,
+        ValueHour,
+        active,
+        JobList,
+      } = result;
+
+      return User.build(
+        id,
+        name,
+        email,
+        password,
+        BirthDate,
+        CreatedAt,
+        UpdatedAt,
+        MonthlyBudget,
+        ZipCode,
+        VacationPerYear,
+        DaysPerWeek,
+        HoursPerDay,
+        ValueHour,
+        active,
+        JobList,
+      );
+    }
+
+    return null;
   }
 
-  async update({
-    id,
-    name,
-    email,
-    MonthlyBudget,
-    VacationPerYear,
-    DaysPerWeek,
-    HoursPerDay,
-    ValueHour,
-  }: UpdateUserInputModel): Promise<User> {
-    throw new Error("Method not implemented.");
+  async update(model: UpdateUserInputModel): Promise<User> {
+    const where = { id: model.id };
+    const result = await this._userDbModel.updateOne(where, model.data);
+
+    console.log(result);
+
+    const { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay, ValueHour } = model.data;
+
+    return User.build(
+      model.id,
+      name,
+      email,
+      "",
+      null,
+      null,
+      null,
+      MonthlyBudget,
+      "",
+      VacationPerYear,
+      DaysPerWeek,
+      HoursPerDay,
+      ValueHour,
+      true,
+    );
   }
 
   async inactivateUser(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+    const user = await this._userDbModel.findOne({ id }).lean().exec();
+
+    user.active = false;
+
+    await this._userDbModel.updateOne({ id }, user);
   }
 
   async addJobItem(id: string, job: Job): Promise<void> {

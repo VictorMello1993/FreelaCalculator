@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
+import { AppError } from "../../../../errors/AppError";
 import { TYPES } from "../../../../types";
-import { UserMap } from "../../../mappers/UserMap";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
 import { IGetUserByIdUseCase } from "./IGetUserByIdUseCase";
 
@@ -15,10 +15,27 @@ export class GetUserByIdUseCase implements IGetUserByIdUseCase {
     this._usersRepository = usersRepository;
   }
 
-  execute(id: string) {
-    const user = this._usersRepository.findById(id);
-    const userDTO = user ? UserMap.toDTO(user) : null;
+  async execute(id: string) {
+    const user = await this._usersRepository.findById(id);
 
-    return userDTO;
+    if (!user) {
+      throw new AppError("User not found", 404);
+    }
+
+    return {
+      id,
+      name: user.name,
+      email: user.email,
+      MonthlyBudget: user.MonthlyBudget,
+      ZipCode: user.ZipCode,
+      VacationPerYear: user.VacationPerYear,
+      DaysPerWeek: user.DaysPerWeek,
+      HoursPerDay: user.HoursPerDay,
+      ValueHour: user.ValueHour,
+      CreatedAt: user.CreatedAt,
+      UpdatedAt: user.UpdatedAt,
+      active: user.active,
+      JobList: user.JobList,
+    };
   }
 }

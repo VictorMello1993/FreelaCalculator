@@ -7,7 +7,7 @@ import { CalculateValueHour } from "../../../services/CalculateValueHour";
 import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
 import { ICreateUserUseCase } from "./ICreateUserUseCase";
 import { FindAddress } from "../../../services/FindAddress";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 import { UserViewModel } from "../../../dtos/users/UserViewModel";
 
 @injectable()
@@ -43,7 +43,6 @@ export class CreateUserUseCase implements ICreateUserUseCase {
     const address = await FindAddress(ZipCode);
 
     const newUser = await this._usersRepository.create({
-      id: uuid(),
       name,
       email,
       password: hashedPassword,

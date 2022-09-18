@@ -2,9 +2,10 @@ import { inject, injectable } from "inversify";
 import { AppError } from "../../../../errors/AppError";
 import { TYPES } from "../../../../types";
 import { UpdateUserInputModel } from "../../../dtos/users/UpdateUserInputModel";
-import { UserMap } from "../../../mappers/UserMap";
+import { UserViewModel } from "../../../dtos/users/UserViewModel";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
 import { CalculateValueHour } from "../../../services/CalculateValueHour";
+import { FindAddress } from "../../../services/FindAddress";
 import { IEditUserProfileUseCase } from "./IEditUserProfileUseCase";
 
 @injectable()
@@ -18,34 +19,36 @@ export class EditUserProfileUseCase implements IEditUserProfileUseCase {
     this._usersRepository = usersRepository;
   }
 
-  async execute({
-    id,
-    name,
-    email,
-    MonthlyBudget,
-    VacationPerYear,
-    DaysPerWeek,
-    HoursPerDay,
-  }: UpdateUserInputModel): Promise<UserMap> {
-    const user = this._usersRepository.findById(id);
+  async execute(model: UpdateUserInputModel): Promise<UserViewModel> {
+    const user = await this._usersRepository.findById(model.id);
 
     if (!user) {
       throw new AppError("User not found", 404);
     }
 
-    const valueHour = CalculateValueHour(VacationPerYear, HoursPerDay, DaysPerWeek, MonthlyBudget);
+    const { id } = model;
+    const { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay, ZipCode } = model.data;
 
-    const updatedUser = this._usersRepository.update({
+    const valueHour = CalculateValueHour(model, HoursPerDay, DaysPerWeek, MonthlyBudget);
+    const address = await FindAddress(ZipCode);
+
+    model.data.ValueHour = valueHour;
+
+    const updatedUser = await this._usersRepository.update(model);
+
+    return {
       id,
       name,
       email,
       MonthlyBudget,
+      ZipCode,
+      Address: address,
       VacationPerYear,
       DaysPerWeek,
       HoursPerDay,
       ValueHour: valueHour,
-    });
-
-    return UserMap.toDTO(updatedUser);
+      UpdatedAt: updatedUser.UpdatedAt,
+      active: updatedUser.active,
+    };
   }
 }

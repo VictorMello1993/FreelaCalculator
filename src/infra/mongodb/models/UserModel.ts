@@ -29,7 +29,6 @@ export interface IUserDbModel {
 }
 
 const UsersSchema = new mongoose.Schema<IUserDbModel>({
-  id: { type: String, required: true },
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
@@ -45,7 +44,6 @@ const UsersSchema = new mongoose.Schema<IUserDbModel>({
   active: { type: Boolean, default: true },
   JobList: [
     {
-      id: { type: String, required: true },
       name: { type: String, required: true },
       DailyHours: { type: Number, required: true },
       TotalHours: { type: Number, required: true },

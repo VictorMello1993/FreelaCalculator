@@ -25,16 +25,7 @@ export interface IUsersRepository {
 
   findById(id: string): Promise<User>;
 
-  update({
-    id,
-    name,
-    email,
-    MonthlyBudget,
-    VacationPerYear,
-    DaysPerWeek,
-    HoursPerDay,
-    ValueHour,
-  }: UpdateUserInputModel): Promise<User>;
+  update(model: UpdateUserInputModel): Promise<User>;
 
   inactivateUser(id: string): Promise<void>;
 

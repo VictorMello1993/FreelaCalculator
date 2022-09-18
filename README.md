@@ -38,7 +38,7 @@ Dashboard de projetos freelancer, contando com uma calculadora de horas trabalha
 - [x] Criação de middlewares de erros
 - [x] Criação de middlewares para validação de DTOs
 - [x] Criação de DTOs como modelo de saída em vez de utilizar entidades nos controllers
-
+- [x] Persistência de dados em memória
 
 ## Executando o projeto
 
@@ -81,7 +81,6 @@ npm run dev
 * <a href="https://www.npmjs.com/package/class-validator">class-validator</a>
 * <a href="https://www.npmjs.com/package/class-transformer">class-transformer</a>
 * <a href="https://www.npmjs.com/package/reflect-metadata">reflect-metadata</a>
-* <a href="https://www.npmjs.com/package/axios">Axios</a>
 
 ## Endpoints para importar
 

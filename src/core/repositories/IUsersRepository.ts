@@ -5,6 +5,7 @@ import { Job } from "../entities/Job";
 
 export interface IUsersRepository {
   create({
+    id,
     name,
     email,
     password,
@@ -15,11 +16,14 @@ export interface IUsersRepository {
     DaysPerWeek,
     HoursPerDay,
     ValueHour,
+    CreatedAt,
+    UpdatedAt,
+    active,
   }: CreateUserInputModel): Promise<User>;
 
-  findByEmail(email: string): User;
+  findByEmail(email: string): Promise<User>;
 
-  findById(id: string): User;
+  findById(id: string): Promise<User>;
 
   update({
     id,
@@ -30,11 +34,11 @@ export interface IUsersRepository {
     DaysPerWeek,
     HoursPerDay,
     ValueHour,
-  }: UpdateUserInputModel): User;
+  }: UpdateUserInputModel): Promise<User>;
 
-  inactivateUser(id: string): void;
+  inactivateUser(id: string): Promise<void>;
 
-  addJobItem(id: string, job: Job): void;
+  addJobItem(id: string, job: Job): Promise<void>;
 
-  deleteJobItem(id: string): void;
+  deleteJobItem(id: string): Promise<void>;
 }

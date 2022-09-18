@@ -4,10 +4,11 @@ import { IUsersRepository } from "../../../repositories/IUsersRepository";
 import { AppError } from "../../../../errors/AppError";
 import { generateHash } from "../../../../utils/auth.helpers";
 import { CalculateValueHour } from "../../../services/CalculateValueHour";
-import { UserMap } from "../../../mappers/UserMap";
 import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
 import { ICreateUserUseCase } from "./ICreateUserUseCase";
 import { FindAddress } from "../../../services/FindAddress";
+import { v4 as uuid } from "uuid";
+import { UserViewModel } from "../../../dtos/users/UserViewModel";
 
 @injectable()
 export class CreateUserUseCase implements ICreateUserUseCase {
@@ -30,8 +31,8 @@ export class CreateUserUseCase implements ICreateUserUseCase {
     VacationPerYear,
     DaysPerWeek,
     HoursPerDay,
-  }: CreateUserInputModel): Promise<UserMap> {
-    const user = this._usersRepository.findByEmail(email);
+  }: CreateUserInputModel): Promise<UserViewModel> {
+    const user = await this._usersRepository.findByEmail(email);
 
     if (user) {
       throw new AppError("User already exists");
@@ -42,6 +43,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
     const address = await FindAddress(ZipCode);
 
     const newUser = await this._usersRepository.create({
+      id: uuid(),
       name,
       email,
       password: hashedPassword,
@@ -52,9 +54,24 @@ export class CreateUserUseCase implements ICreateUserUseCase {
       DaysPerWeek,
       HoursPerDay,
       ValueHour: valueHour,
-      Address: address,
+      CreatedAt: new Date(),
+      active: true,
     });
 
-    return UserMap.toDTO(newUser);
+    return {
+      id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+      BirthDate: newUser.BirthDate,
+      MonthlyBudget: newUser.MonthlyBudget,
+      ZipCode: newUser.ZipCode,
+      Address: address,
+      VacationPerYear: newUser.VacationPerYear,
+      DaysPerWeek: newUser.DaysPerWeek,
+      HoursPerDay: newUser.HoursPerDay,
+      ValueHour: valueHour,
+      CreatedAt: newUser.CreatedAt,
+      active: newUser.active,
+    };
   }
 }

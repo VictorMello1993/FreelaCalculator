@@ -1,4 +1,5 @@
 export class CreateUserInputModel {
+  id?: string;
   name: string;
   email: string;
   password: string;
@@ -10,4 +11,7 @@ export class CreateUserInputModel {
   DaysPerWeek: number;
   HoursPerDay: number;
   ValueHour?: number;
+  CreatedAt?: Date;
+  UpdatedAt?: Date;
+  active?: boolean;
 }

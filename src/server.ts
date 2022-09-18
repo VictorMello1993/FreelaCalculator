@@ -6,14 +6,14 @@ import "./presentation/controllers/users.controller";
 import "./presentation/controllers/jobs.controller";
 import { container } from "./container";
 import { AppError } from "./errors/AppError";
-// import mongoose from "mongoose";
+import mongoose from "mongoose";
 
 export class App {
   constructor() {
     this.createService();
   }
 
-  createService(): void {
+  async createService(): Promise<void> {
     const port = process.env.PORT;
     const url = process.env.API_URL;
 
@@ -35,34 +35,17 @@ export class App {
 
     const app = server.build();
 
-    // mongoose
-    //   .connect(process.env.MONGO_DB_URL, {
-    //     dbName: process.env.MONGO_DB_DATABASE,
-    //     user: process.env.MONGO_DB_USER,
-    //     pass: process.env.MONGO_DB_PASSWORD,
-    //   })
-    //   .then(() => {
-    //     console.log("MongoDB connected successfully!");
+    try {
+      await mongoose.connect(process.env.MONGO_DB_URL, {
+        dbName: process.env.MONGO_DB_DATABASE,
+        user: process.env.MONGO_DB_USER,
+        pass: process.env.MONGO_DB_PASSWORD,
+      });
 
-    //     const userSchema = new mongoose.Schema({
-    //       name: { type: String },
-    //       age: { type: Number },
-    //     });
-
-    //     const commentSchema = new mongoose.Schema({
-    //       message: { type: String },
-    //     });
-
-    //     const User = mongoose.model("User", userSchema);
-    //     const Comments = mongoose.model("Comment", commentSchema);
-
-    //     const fulano = new User({ name: "Fulano", age: 28 });
-    //     const firstComment = new Comments({ message: "Olá mundo" });
-
-    //     fulano.save();
-    //     firstComment.save();
-    //   })
-    //   .catch((err) => console.log(err));
+      console.log("MongoDB connected successfully!");
+    } catch (error) {
+      console.log(error);
+    }
 
     app.listen(port, () => console.log(`Server is running at ${url}${port}`));
   }

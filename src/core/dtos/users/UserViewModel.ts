@@ -11,4 +11,5 @@ export class UserViewModel {
   HoursPerDay: number;
   ValueHour: number;
   CreatedAt: Date;
+  active: Boolean;
 }

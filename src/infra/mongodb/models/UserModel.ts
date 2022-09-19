@@ -48,7 +48,7 @@ const UsersSchema = new mongoose.Schema<IUserDbModel>({
       DailyHours: { type: Number, required: true },
       TotalHours: { type: Number, required: true },
       CreatedAt: { type: Date, required: Date.now },
-      UpdatedAt: { type: Date, required: true, default: Date.now },
+      UpdatedAt: { type: Date, required: true, default: null },
       UserId: { type: String, required: true },
     },
   ],

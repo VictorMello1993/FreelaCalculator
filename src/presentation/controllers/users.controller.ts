@@ -92,8 +92,7 @@ export class UsersController extends BaseHttpController implements interfaces.Co
 
   @httpDelete("/:id", ValidateDTOMiddleware(InactivateUserRequestDTO.Params, "params"))
   async delete(@requestParam("id") params: string): Promise<void> {
-    const result = this._inactivateUserUseCase.execute(params);
-    this.json(result);
+    await this._inactivateUserUseCase.execute(params);
   }
 
   @httpPost("/login", ValidateDTOMiddleware(AuthRequestDTO.Body, "body"))

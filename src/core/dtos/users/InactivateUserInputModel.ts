@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsUUID } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 
 export namespace InactivateUserInputModel {
   export class Params {
-    @IsUUID("4")
+    @IsString()
     @IsNotEmpty()
     id: string;
   }

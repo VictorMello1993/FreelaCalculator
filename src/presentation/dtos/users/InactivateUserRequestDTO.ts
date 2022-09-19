@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsUUID } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 
 export namespace InactivateUserRequestDTO {
   export class Params {
-    @IsUUID("4")
+    @IsString()
     @IsNotEmpty()
     id: string;
   }

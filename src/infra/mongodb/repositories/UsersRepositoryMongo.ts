@@ -126,11 +126,9 @@ export class UsersRepositoryMongo implements IUsersRepository {
   }
 
   async inactivateUser(id: string): Promise<void> {
-    const user = await this._userDbModel.findOne({ id }).lean().exec();
+    const where = { id };
 
-    user.active = false;
-
-    await this._userDbModel.updateOne({ id }, user);
+    await this._userDbModel.updateOne(where, { active: false });
   }
 
   async addJobItem(id: string, job: Job): Promise<void> {

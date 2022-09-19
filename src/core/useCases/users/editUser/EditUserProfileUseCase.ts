@@ -29,10 +29,11 @@ export class EditUserProfileUseCase implements IEditUserProfileUseCase {
     const { id } = model;
     const { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay, ZipCode } = model.data;
 
-    const valueHour = CalculateValueHour(model, HoursPerDay, DaysPerWeek, MonthlyBudget);
+    const valueHour = CalculateValueHour(VacationPerYear, HoursPerDay, DaysPerWeek, MonthlyBudget);
     const address = await FindAddress(ZipCode);
 
     model.data.ValueHour = valueHour;
+    model.data.UpdatedAt = new Date();
 
     const updatedUser = await this._usersRepository.update(model);
 

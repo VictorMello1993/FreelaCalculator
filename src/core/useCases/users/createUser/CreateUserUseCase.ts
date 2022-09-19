@@ -54,6 +54,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
       HoursPerDay,
       ValueHour: valueHour,
       CreatedAt: new Date(),
+      UpdatedAt: null,
       active: true,
     });
 

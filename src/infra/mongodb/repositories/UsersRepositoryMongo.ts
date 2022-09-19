@@ -71,43 +71,30 @@ export class UsersRepositoryMongo implements IUsersRepository {
   }
 
   async findById(id: string): Promise<User> {
-    const result = await this._userDbModel.findOne({ id });
+    const result = await this._userDbModel.find();
 
-    if (result) {
-      const {
-        name,
-        email,
-        password,
-        BirthDate,
-        CreatedAt,
-        UpdatedAt,
-        MonthlyBudget,
-        ZipCode,
-        VacationPerYear,
-        DaysPerWeek,
-        HoursPerDay,
-        ValueHour,
-        active,
-        JobList,
-      } = result;
+    if (result.length > 0) {
+      const user = result.find((item) => item.id === id);
 
-      return User.build(
-        id,
-        name,
-        email,
-        password,
-        BirthDate,
-        CreatedAt,
-        UpdatedAt,
-        MonthlyBudget,
-        ZipCode,
-        VacationPerYear,
-        DaysPerWeek,
-        HoursPerDay,
-        ValueHour,
-        active,
-        JobList,
-      );
+      return user
+        ? User.build(
+          user.id,
+          user.name,
+          user.email,
+          user.password,
+          user.BirthDate,
+          user.CreatedAt,
+          user.UpdatedAt,
+          user.MonthlyBudget,
+          user.ZipCode,
+          user.VacationPerYear,
+          user.DaysPerWeek,
+          user.HoursPerDay,
+          user.ValueHour,
+          user.active,
+          user.JobList,
+        )
+        : null;
     }
 
     return null;
@@ -115,11 +102,10 @@ export class UsersRepositoryMongo implements IUsersRepository {
 
   async update(model: UpdateUserInputModel): Promise<User> {
     const where = { id: model.id };
-    const result = await this._userDbModel.updateOne(where, model.data);
+    await this._userDbModel.updateOne(where, model.data);
 
-    console.log(result);
-
-    const { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay, ValueHour } = model.data;
+    const { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay, ValueHour, UpdatedAt, ZipCode } =
+      model.data;
 
     return User.build(
       model.id,
@@ -128,9 +114,9 @@ export class UsersRepositoryMongo implements IUsersRepository {
       "",
       null,
       null,
-      null,
+      UpdatedAt,
       MonthlyBudget,
-      "",
+      ZipCode,
       VacationPerYear,
       DaysPerWeek,
       HoursPerDay,

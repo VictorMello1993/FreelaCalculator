@@ -10,5 +10,6 @@ export class UpdateUserInputModel {
     HoursPerDay: number;
     ValueHour?: number;
     active?: boolean;
+    UpdatedAt: Date;
   };
 }

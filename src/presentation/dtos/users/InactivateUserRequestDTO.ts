@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsMongoId, IsNotEmpty } from "class-validator";
 
 export namespace InactivateUserRequestDTO {
   export class Params {
-    @IsString()
+    @IsMongoId()
     @IsNotEmpty()
     id: string;
   }

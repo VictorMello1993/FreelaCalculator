@@ -6,19 +6,23 @@ import { generateHash } from "../../../../utils/auth.helpers";
 import { CalculateValueHour } from "../../../services/CalculateValueHour";
 import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
 import { ICreateUserUseCase } from "./ICreateUserUseCase";
-import { FindAddress } from "../../../services/FindAddress";
 // import { v4 as uuid } from "uuid";
 import { UserViewModel } from "../../../dtos/users/UserViewModel";
+import { IFindAddressProvider } from "../../../providers/IFindAddressProvider";
 
 @injectable()
 export class CreateUserUseCase implements ICreateUserUseCase {
   private readonly _usersRepository: IUsersRepository;
+  private readonly _findAddressProvider: IFindAddressProvider;
 
   constructor(
     @inject(TYPES.IUsersRepository)
     private usersRepository: IUsersRepository,
+    @inject(TYPES.IFindAddressProvider)
+    private findAddressProvider: IFindAddressProvider,
   ) {
     this._usersRepository = usersRepository;
+    this._findAddressProvider = findAddressProvider;
   }
 
   async execute({
@@ -40,7 +44,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
 
     const valueHour = CalculateValueHour(VacationPerYear, HoursPerDay, DaysPerWeek, MonthlyBudget);
     const hashedPassword = await generateHash(password);
-    const address = await FindAddress(ZipCode);
+    const address = await this._findAddressProvider.FindAddress(ZipCode);
 
     const newUser = await this._usersRepository.create({
       name,

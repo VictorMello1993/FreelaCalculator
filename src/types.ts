@@ -9,4 +9,5 @@ export const TYPES = {
   // IDeleteJobUseCase: Symbol.for("IDeleteJobUseCase"),
   IAuthenticateUserUseCase: Symbol.for("IAuthenticateUserUseCase"),
   IGetUserByIdUseCase: Symbol.for("IGetUserByIdUseCase"),
+  IFindAddressProvider: Symbol.for("IFindAddressProvider"),
 };

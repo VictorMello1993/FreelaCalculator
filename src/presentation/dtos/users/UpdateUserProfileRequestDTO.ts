@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString, Length, Matches, MaxLength } from "class-validator";
+import { IsEmail, IsMongoId, IsNotEmpty, IsNumber, IsString, Length, Matches, MaxLength } from "class-validator";
 export namespace UpdateUserProfileRequestDTO {
   export class Body {
     @IsString()
@@ -39,7 +39,7 @@ export namespace UpdateUserProfileRequestDTO {
   }
 
   export class Params {
-    @IsString()
+    @IsMongoId()
     @IsNotEmpty()
     id: string;
   }

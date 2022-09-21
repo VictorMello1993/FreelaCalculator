@@ -102,6 +102,7 @@ export class UsersRepositoryMongo implements IUsersRepository {
 
   async update(model: UpdateUserInputModel): Promise<User> {
     const where = { id: model.id };
+
     await this._userDbModel.updateOne(where, model.data);
 
     const { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay, ValueHour, UpdatedAt, ZipCode } =

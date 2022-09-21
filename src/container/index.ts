@@ -1,4 +1,5 @@
 import { Container } from "inversify";
+import { IFindAddressProvider } from "../core/providers/IFindAddressProvider";
 // import { IJobsRepository } from "../core/repositories/IJobsRepository";
 import { IUsersRepository } from "../core/repositories/IUsersRepository";
 // import { CreateJobUseCase } from "../core/useCases/jobs/createJob/CreateJobUseCase";
@@ -19,6 +20,7 @@ import { GetUserByIdUseCase } from "../core/useCases/users/getUserById/GetUserBy
 import { IGetUserByIdUseCase } from "../core/useCases/users/getUserById/IGetUserByIdUseCase";
 // import { JobsRepositoryMongo } from "../infra/mongodb/repositories/JobsRepositoryMongo";
 import { UsersRepositoryMongo } from "../infra/mongodb/repositories/UsersRepositoryMongo";
+import { ViaCepFindAddressProvider } from "../infra/providers/ViaCepFindAddressProvider";
 
 import { TYPES } from "../types";
 
@@ -34,3 +36,4 @@ container.bind<IInactivateUserUseCase>(TYPES.IInactivateUserUseCase).to(Inactiva
 container.bind<IAuthenticateUserUseCase>(TYPES.IAuthenticateUserUseCase).to(AuthenticateUserUseCase);
 // container.bind<IDeleteJobUseCase>(TYPES.IDeleteJobUseCase).to(DeleteJobUseCase);
 container.bind<IGetUserByIdUseCase>(TYPES.IGetUserByIdUseCase).to(GetUserByIdUseCase);
+container.bind<IFindAddressProvider>(TYPES.IFindAddressProvider).to(ViaCepFindAddressProvider);

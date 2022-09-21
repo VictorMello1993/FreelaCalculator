@@ -2,19 +2,23 @@ import { inject, injectable } from "inversify";
 import { AppError } from "../../../../errors/AppError";
 import { TYPES } from "../../../../types";
 import { UserViewModel } from "../../../dtos/users/UserViewModel";
+import { IFindAddressProvider } from "../../../providers/IFindAddressProvider";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
-import { FindAddress } from "../../../services/FindAddress";
 import { IGetUserByIdUseCase } from "./IGetUserByIdUseCase";
 
 @injectable()
 export class GetUserByIdUseCase implements IGetUserByIdUseCase {
   private readonly _usersRepository: IUsersRepository;
+  private readonly _findAddressProvider: IFindAddressProvider;
 
   constructor(
     @inject(TYPES.IUsersRepository)
     private usersRepository: IUsersRepository,
+    @inject(TYPES.IFindAddressProvider)
+    private findAddressProvider: IFindAddressProvider,
   ) {
     this._usersRepository = usersRepository;
+    this._findAddressProvider = findAddressProvider;
   }
 
   async execute(id: string): Promise<UserViewModel> {
@@ -24,7 +28,7 @@ export class GetUserByIdUseCase implements IGetUserByIdUseCase {
       throw new AppError("User not found", 404);
     }
 
-    const address = await FindAddress(user.ZipCode);
+    const address = await this.findAddressProvider.FindAddress(user.ZipCode);
 
     return {
       id,

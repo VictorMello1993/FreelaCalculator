@@ -64,7 +64,11 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     return this.json(result);
   }
 
-  @httpPut("/:id")
+  @httpPut(
+    "/:id",
+    ValidateDTOMiddleware(UpdateUserProfileRequestDTO.Body, "body"),
+    ValidateDTOMiddleware(UpdateUserProfileRequestDTO.Params, "params"),
+  )
   async update(
     @requestParam("id") params: UpdateUserProfileRequestDTO.Params,
     @requestBody() body: UpdateUserProfileRequestDTO.Body,

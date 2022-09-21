@@ -1,14 +1,4 @@
-import {
-  IsEmail,
-  IsISO8601,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  IsUUID,
-  Length,
-  Matches,
-  MaxLength,
-} from "class-validator";
+import { IsEmail, IsISO8601, IsNotEmpty, IsNumber, IsString, Length, Matches, MaxLength } from "class-validator";
 
 export namespace CreateUserRequestDTO {
   export class Body {
@@ -51,11 +41,5 @@ export namespace CreateUserRequestDTO {
     @IsNumber()
     @IsNotEmpty()
     HoursPerDay: number;
-  }
-
-  export class Params {
-    @IsUUID("4")
-    @IsNotEmpty()
-    id: string;
   }
 }

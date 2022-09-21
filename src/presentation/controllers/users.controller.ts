@@ -64,7 +64,7 @@ export class UsersController extends BaseHttpController implements interfaces.Co
     return this.json(result);
   }
 
-  @httpPut("/:id")
+  @httpPut("/:id", ValidateDTOMiddleware(UpdateUserProfileRequestDTO.Body, "body"))
   async update(
     @requestParam("id") params: UpdateUserProfileRequestDTO.Params,
     @requestBody() body: UpdateUserProfileRequestDTO.Body,
@@ -73,6 +73,7 @@ export class UsersController extends BaseHttpController implements interfaces.Co
       id: params.toString(),
       name: body.name,
       email: body.email,
+      ZipCode: body.ZipCode,
       MonthlyBudget: body.MonthlyBudget,
       VacationPerYear: body.VacationPerYear,
       DaysPerWeek: body.DaysPerWeek,

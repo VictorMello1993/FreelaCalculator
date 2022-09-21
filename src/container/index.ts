@@ -19,8 +19,10 @@ import { GetUserByIdUseCase } from "../core/useCases/users/getUserById/GetUserBy
 import { IGetUserByIdUseCase } from "../core/useCases/users/getUserById/IGetUserByIdUseCase";
 import { JobsRepository } from "../infra/in-memory/repositories/JobsRepository";
 import { UsersRepository } from "../infra/in-memory/repositories/UsersRepository";
+import { IFindAddressProvider } from "../core/providers/IFindAddressProvider";
 
 import { TYPES } from "../types";
+import { ViaCepFindAddressProvider } from "../infra/providers/ViaCepFindAddressProvider";
 
 export const container = new Container();
 
@@ -34,3 +36,4 @@ container.bind<IEditJobUseCase>(TYPES.IEditJobUseCase).to(EditJobUseCase);
 container.bind<IAuthenticateUserUseCase>(TYPES.IAuthenticateUserUseCase).to(AuthenticateUserUseCase);
 container.bind<IDeleteJobUseCase>(TYPES.IDeleteJobUseCase).to(DeleteJobUseCase);
 container.bind<IGetUserByIdUseCase>(TYPES.IGetUserByIdUseCase).to(GetUserByIdUseCase);
+container.bind<IFindAddressProvider>(TYPES.IFindAddressProvider).to(ViaCepFindAddressProvider);

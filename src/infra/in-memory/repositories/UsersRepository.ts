@@ -52,6 +52,7 @@ export class UsersRepository implements IUsersRepository {
     id,
     name,
     email,
+    ZipCode,
     MonthlyBudget,
     VacationPerYear,
     DaysPerWeek,

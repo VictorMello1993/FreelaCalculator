@@ -1,8 +1,8 @@
 export const TYPES = {
   IUsersRepository: Symbol.for("IUsersRepository"),
-  // IJobsRepository: Symbol.for("IJobsRepository"),
+  IJobsRepository: Symbol.for("IJobsRepository"),
   ICreateUserUseCase: Symbol.for("ICreateUserUseCase"),
-  // ICreateJobUseCase: Symbol.for("ICreateJobUseCase"),
+  ICreateJobUseCase: Symbol.for("ICreateJobUseCase"),
   IEditUserProfileUseCase: Symbol.for("IEditUserProfileUseCase"),
   IInactivateUserUseCase: Symbol.for("IInactivateUserUseCase"),
   // IEditJobUseCase: Symbol.for("IEditJobUseCase"),

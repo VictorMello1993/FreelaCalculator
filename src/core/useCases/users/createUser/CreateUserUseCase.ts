@@ -6,7 +6,6 @@ import { generateHash } from "../../../../utils/auth.helpers";
 import { CalculateValueHour } from "../../../services/CalculateValueHour";
 import { CreateUserInputModel } from "../../../dtos/users/CreateUserInputModel";
 import { ICreateUserUseCase } from "./ICreateUserUseCase";
-// import { v4 as uuid } from "uuid";
 import { UserViewModel } from "../../../dtos/users/UserViewModel";
 import { IFindAddressProvider } from "../../../providers/IFindAddressProvider";
 

@@ -1,9 +1,45 @@
-// import { IJobsRepository } from "../../../core/repositories/IJobsRepository";
+import { injectable } from "inversify";
+import { Model } from "mongoose";
+import { CreateJobInputModel } from "../../../core/dtos/jobs/CreateJobInputModel";
+import { EditJobInputModel } from "../../../core/dtos/jobs/EditJobInputModel";
+import { Job } from "../../../core/entities/Job";
+import { IJobsRepository } from "../../../core/repositories/IJobsRepository";
+import { IJobDbModel, JobDbModel } from "../models/JobModel";
 
-// export class JobsRepositoryMongo implements IJobsRepository {
-//   private readonly _userDbModel: Model<IUserDbModel>;
+@injectable()
+export class JobsRepositoryMongo implements IJobsRepository {
+  private readonly _jobDbModel: Model<IJobDbModel>;
 
-//   constructor() {
-//     this._userDbModel = UserDbModel;
-//   }
-// }
+  constructor() {
+    this._jobDbModel = JobDbModel;
+  }
+
+  async create({ name, DailyHours, TotalHours, UserId }: CreateJobInputModel): Promise<Job> {
+    const dataModel = {
+      name,
+      DailyHours,
+      TotalHours,
+      UserId,
+    };
+
+    const result = await new this._jobDbModel(dataModel).save();
+
+    return Job.build(result._id.toString(), name, DailyHours, TotalHours, new Date(), null, UserId);
+  }
+
+  async findById(id: string): Promise<Job> {
+    return await this._jobDbModel.findOne({ id });
+  }
+
+  async update(data: EditJobInputModel): Promise<Job> {
+    throw new Error("Method not implemented.");
+  }
+
+  async findByName(name: string): Promise<Job> {
+    return await this._jobDbModel.findOne({ name });
+  }
+
+  delete(id: string): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+}

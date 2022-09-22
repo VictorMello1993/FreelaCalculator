@@ -15,4 +15,24 @@ export class Job {
       this.CreatedAt = new Date();
     }
   }
+
+  static build(
+    id: string,
+    name: string,
+    DailyHours: number,
+    TotalHours: number,
+    CreatedAt: Date,
+    UpdatedAt: Date,
+    UserId: string,
+  ): Job {
+    return {
+      id,
+      name,
+      DailyHours,
+      TotalHours,
+      CreatedAt,
+      UpdatedAt,
+      UserId,
+    };
+  }
 }

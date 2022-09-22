@@ -29,7 +29,7 @@ export interface IUsersRepository {
 
   inactivateUser(id: string): Promise<void>;
 
-  addJobItem(id: string, job: Job): Promise<void>;
+  saveJobItem(id: string, job: Job): Promise<void>;
 
   deleteJobItem(id: string): Promise<void>;
 }

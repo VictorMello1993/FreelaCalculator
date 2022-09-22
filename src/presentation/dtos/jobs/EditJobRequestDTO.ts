@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsNumber, IsString, IsUUID, MaxLength } from "class-validator";
+import { IsMongoId, IsNotEmpty, IsNumber, IsString, MaxLength } from "class-validator";
 
 export namespace EditJobRequestDTO {
   export class Params {
-    @IsUUID("4")
+    @IsMongoId()
     @IsNotEmpty()
     id: string;
   }

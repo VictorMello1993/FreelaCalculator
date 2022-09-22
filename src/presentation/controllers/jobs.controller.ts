@@ -30,14 +30,14 @@ export class JobsController extends BaseHttpController implements interfaces.Con
   constructor(
     @inject(TYPES.ICreateJobUseCase)
     createJobUseCase: ICreateJobUseCase,
-    // @inject(TYPES.IEditJobUseCase)
-    // editJobUseCase: IEditJobUseCase,
+    @inject(TYPES.IEditJobUseCase)
+    editJobUseCase: IEditJobUseCase,
     // @inject(TYPES.IDeleteJobUseCase)
     // deleteJobUseCase: IDeleteJobUseCase,
   ) {
     super();
     this._createJobUseCase = createJobUseCase;
-    // this._editJobUseCase = editJobUseCase;
+    this._editJobUseCase = editJobUseCase;
     // this._deleteJobUseCase = deleteJobUseCase;
   }
 
@@ -68,7 +68,7 @@ export class JobsController extends BaseHttpController implements interfaces.Con
     const { name, DailyHours, TotalHours } = body;
     const { id } = req.user;
 
-    const result = this._editJobUseCase.execute({
+    const result = await this._editJobUseCase.execute({
       id: params.toString(),
       name,
       DailyHours,

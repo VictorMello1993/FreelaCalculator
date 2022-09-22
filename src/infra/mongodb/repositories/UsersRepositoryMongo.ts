@@ -132,7 +132,7 @@ export class UsersRepositoryMongo implements IUsersRepository {
     await this._userDbModel.updateOne(where, { active: false });
   }
 
-  async addJobItem(id: string, job: Job): Promise<void> {
+  async saveJobItem(id: string, job: Job): Promise<void> {
     const where = { id };
 
     await this._userDbModel.updateOne(where, { JobList: job });

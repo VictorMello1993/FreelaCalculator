@@ -31,8 +31,21 @@ export class JobsRepositoryMongo implements IJobsRepository {
     return await this._jobDbModel.findOne({ id });
   }
 
-  async update(data: EditJobInputModel): Promise<Job> {
-    throw new Error("Method not implemented.");
+  async update({ id, name, DailyHours, TotalHours, CreatedAt, UserId }: EditJobInputModel): Promise<Job> {
+    const where = { id };
+
+    const dataToUpdate = {
+      name,
+      DailyHours,
+      TotalHours,
+      UserId,
+      CreatedAt,
+      UpdatedAt: new Date(),
+    };
+
+    await this._jobDbModel.updateOne(where, dataToUpdate);
+
+    return Job.build(id, name, DailyHours, TotalHours, CreatedAt, dataToUpdate.UpdatedAt, UserId);
   }
 
   async findByName(name: string): Promise<Job> {

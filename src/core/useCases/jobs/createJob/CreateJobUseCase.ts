@@ -31,7 +31,7 @@ export class CreateJobUseCase implements ICreateJobUseCase {
 
     const newJob = await this._jobsRepository.create({ name, DailyHours, TotalHours, UserId });
 
-    await this._usersRepository.addJobItem(UserId, newJob);
+    await this._usersRepository.saveJobItem(UserId, newJob);
 
     return {
       id: newJob.id,

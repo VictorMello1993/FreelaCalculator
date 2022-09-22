@@ -1,39 +1,54 @@
-// import { inject, injectable } from "inversify";
-// import { JsonWebTokenError } from "jsonwebtoken";
-// import { AppError } from "../../../../errors/AppError";
-// import { TYPES } from "../../../../types";
-// import { EditJobInputModel } from "../../../dtos/jobs/EditJobInputModel";
-// import { IJobsRepository } from "../../../repositories/IJobsRepository";
-// import { IEditJobUseCase } from "./IEditJobUseCase";
+import { inject, injectable } from "inversify";
+import { AppError } from "../../../../errors/AppError";
+import { TYPES } from "../../../../types";
+import { EditJobInputModel } from "../../../dtos/jobs/EditJobInputModel";
+import { JobViewModel } from "../../../dtos/jobs/JobViewModel";
+import { IJobsRepository } from "../../../repositories/IJobsRepository";
+import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import { IEditJobUseCase } from "./IEditJobUseCase";
 
-// @injectable()
-// export class EditJobUseCase implements IEditJobUseCase {
-//   private readonly _jobsRepository: IJobsRepository;
+@injectable()
+export class EditJobUseCase implements IEditJobUseCase {
+  private readonly _jobsRepository: IJobsRepository;
+  private readonly _usersRepository: IUsersRepository;
 
-//   constructor(
-//     @inject(TYPES.IJobsRepository)
-//     private jobsRepository: IJobsRepository,
-//   ) {
-//     this._jobsRepository = jobsRepository;
-//   }
+  constructor(
+    @inject(TYPES.IJobsRepository)
+    private jobsRepository: IJobsRepository,
 
-//   async execute({ id, name, DailyHours, TotalHours, UserId }: EditJobInputModel): Promise<JsonWebTokenError> {
-//     const job = await this._jobsRepository.findById(id);
+    @inject(TYPES.IUsersRepository)
+    private usersRepository: IUsersRepository,
+  ) {
+    this._jobsRepository = jobsRepository;
+    this._usersRepository = usersRepository;
+  }
 
-//     if (!job) {
-//       throw new AppError("Job not found", 404);
-//     }
+  async execute({ id, name, DailyHours, TotalHours, UserId }: EditJobInputModel): Promise<JobViewModel> {
+    const job = await this._jobsRepository.findById(id);
 
-//     const jobEdited = await this._jobsRepository.update({ id, name, DailyHours, TotalHours, UserId });
+    if (!job) {
+      throw new AppError("Job not found", 404);
+    }
 
-//     return {
-//       id: jobEdited.id,
-//       name,
-//       DailyHours,
-//       TotalHours,
-//       UserId,
-//       CreatedAt: jobEdited.CreatedAt,
-//       UpdatedAt: jobEdited.UpdatedAt,
-//     };
-//   }
-// }
+    const jobEdited = await this._jobsRepository.update({
+      id,
+      name,
+      DailyHours,
+      TotalHours,
+      UserId,
+      CreatedAt: job.CreatedAt,
+    });
+
+    await this._usersRepository.saveJobItem(UserId, jobEdited);
+
+    return {
+      id: jobEdited.id,
+      name,
+      DailyHours,
+      TotalHours,
+      UserId,
+      CreatedAt: jobEdited.CreatedAt,
+      UpdatedAt: jobEdited.UpdatedAt,
+    };
+  }
+}

@@ -4,4 +4,6 @@ export class EditJobInputModel {
   DailyHours: number;
   TotalHours: number;
   UserId: string;
+  CreatedAt?: Date;
+  UpdatedAt?: Date;
 }

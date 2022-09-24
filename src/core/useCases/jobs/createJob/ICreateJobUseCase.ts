@@ -1,6 +1,6 @@
 import { CreateJobInputModel } from "../../../dtos/jobs/CreateJobInputModel";
-import { JobMap } from "../../../mappers/JobMap";
+import { JobViewModel } from "../../../dtos/jobs/JobViewModel";
 
 export interface ICreateJobUseCase {
-  execute(data: CreateJobInputModel): JobMap;
+  execute(data: CreateJobInputModel): Promise<JobViewModel>;
 }

@@ -138,7 +138,9 @@ export class UsersRepositoryMongo implements IUsersRepository {
     await this._userDbModel.updateOne(where, { JobList: job });
   }
 
-  async deleteJobItem(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async deleteJobItem(id: string, job: Job): Promise<void> {
+    const where = { id };
+
+    await this._userDbModel.deleteOne(where, { JobLIst: job });
   }
 }

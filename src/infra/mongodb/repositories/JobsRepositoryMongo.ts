@@ -52,7 +52,9 @@ export class JobsRepositoryMongo implements IJobsRepository {
     return await this._jobDbModel.findOne({ name });
   }
 
-  delete(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async delete(id: string): Promise<void> {
+    const where = { id };
+
+    await this._jobDbModel.deleteOne(where);
   }
 }

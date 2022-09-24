@@ -31,5 +31,5 @@ export interface IUsersRepository {
 
   saveJobItem(id: string, job: Job): Promise<void>;
 
-  deleteJobItem(id: string): Promise<void>;
+  deleteJobItem(id: string, job: Job): Promise<void>;
 }

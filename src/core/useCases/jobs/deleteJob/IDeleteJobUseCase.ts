@@ -1,3 +1,3 @@
 export interface IDeleteJobUseCase {
-  execute(id: string): void;
+  execute(id: string): Promise<void>;
 }

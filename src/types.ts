@@ -6,7 +6,7 @@ export const TYPES = {
   IEditUserProfileUseCase: Symbol.for("IEditUserProfileUseCase"),
   IInactivateUserUseCase: Symbol.for("IInactivateUserUseCase"),
   IEditJobUseCase: Symbol.for("IEditJobUseCase"),
-  // IDeleteJobUseCase: Symbol.for("IDeleteJobUseCase"),
+  IDeleteJobUseCase: Symbol.for("IDeleteJobUseCase"),
   IAuthenticateUserUseCase: Symbol.for("IAuthenticateUserUseCase"),
   IGetUserByIdUseCase: Symbol.for("IGetUserByIdUseCase"),
   IFindAddressProvider: Symbol.for("IFindAddressProvider"),

@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsUUID } from "class-validator";
+import { IsMongoId, IsNotEmpty } from "class-validator";
 
 export namespace DeleteJobRequestDTO {
   export class Params {
-    @IsUUID()
+    @IsMongoId()
     @IsNotEmpty()
     id: string;
   }

@@ -6,8 +6,8 @@ import { CreateJobUseCase } from "../core/useCases/jobs/createJob/CreateJobUseCa
 import { ICreateJobUseCase } from "../core/useCases/jobs/createJob/ICreateJobUseCase";
 import { EditJobUseCase } from "../core/useCases/jobs/editJob/EditJobUseCase";
 import { IEditJobUseCase } from "../core/useCases/jobs/editJob/IEditJobUseCase";
-// import { DeleteJobUseCase } from "../core/useCases/jobs/deleteJob/DeleteJobUseCase";
-// import { IDeleteJobUseCase } from "../core/useCases/jobs/deleteJob/IDeleteJobUseCase";
+import { DeleteJobUseCase } from "../core/useCases/jobs/deleteJob/DeleteJobUseCase";
+import { IDeleteJobUseCase } from "../core/useCases/jobs/deleteJob/IDeleteJobUseCase";
 import { AuthenticateUserUseCase } from "../core/useCases/users/auth/AuthenticateUserUseCase";
 import { IAuthenticateUserUseCase } from "../core/useCases/users/auth/IAuthenticateUserUseCase";
 import { CreateUserUseCase } from "../core/useCases/users/createUser/CreateUserUseCase";
@@ -34,6 +34,6 @@ container.bind<IEditUserProfileUseCase>(TYPES.IEditUserProfileUseCase).to(EditUs
 container.bind<IInactivateUserUseCase>(TYPES.IInactivateUserUseCase).to(InactivateUserUseCase);
 container.bind<IEditJobUseCase>(TYPES.IEditJobUseCase).to(EditJobUseCase);
 container.bind<IAuthenticateUserUseCase>(TYPES.IAuthenticateUserUseCase).to(AuthenticateUserUseCase);
-// container.bind<IDeleteJobUseCase>(TYPES.IDeleteJobUseCase).to(DeleteJobUseCase);
+container.bind<IDeleteJobUseCase>(TYPES.IDeleteJobUseCase).to(DeleteJobUseCase);
 container.bind<IGetUserByIdUseCase>(TYPES.IGetUserByIdUseCase).to(GetUserByIdUseCase);
 container.bind<IFindAddressProvider>(TYPES.IFindAddressProvider).to(ViaCepFindAddressProvider);

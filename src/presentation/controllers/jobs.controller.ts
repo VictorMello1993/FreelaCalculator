@@ -32,13 +32,13 @@ export class JobsController extends BaseHttpController implements interfaces.Con
     createJobUseCase: ICreateJobUseCase,
     @inject(TYPES.IEditJobUseCase)
     editJobUseCase: IEditJobUseCase,
-    // @inject(TYPES.IDeleteJobUseCase)
-    // deleteJobUseCase: IDeleteJobUseCase,
+    @inject(TYPES.IDeleteJobUseCase)
+    deleteJobUseCase: IDeleteJobUseCase,
   ) {
     super();
     this._createJobUseCase = createJobUseCase;
     this._editJobUseCase = editJobUseCase;
-    // this._deleteJobUseCase = deleteJobUseCase;
+    this._deleteJobUseCase = deleteJobUseCase;
   }
 
   @httpPost(

@@ -83,7 +83,7 @@ npm run dev
 * <a href="https://www.npmjs.com/package/class-transformer">class-transformer</a>
 * <a href="https://www.npmjs.com/package/reflect-metadata">reflect-metadata</a>
 * <a href="https://www.npmjs.com/package/viacep">viacep</a>
-* <a href="https://mongoosejs.com/">viacep</a>
+* <a href="https://mongoosejs.com/">Mongoose</a>
 
 ## Endpoints para importar
 

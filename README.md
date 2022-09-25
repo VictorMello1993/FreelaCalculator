@@ -86,7 +86,7 @@ npm run dev
 ## Endpoints para importar
 
 ### Insomnia
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Freela%20Calculator%20API&uri=https%3A%2F%2Fgist.githubusercontent.com%2FVictorMello1993%2Febcf8e061184c1001ece1e5cd82504f2%2Fraw%2F6949b3430fe417e767bd736920b9873bd798a8c5%2FInsomnia_2022-08-28.json)
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=freela-calculator-api&uri=https%3A%2F%2Fgist.githubusercontent.com%2FVictorMello1993%2Ff46baf3530e5dedb37e2df4b637b1e4b%2Fraw%2F21f5fe1cc672bbce17e5eae1aa87d5470293bc17%2FInsomnia_2022-09-25.json)
 
 ### Postman
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/bda7ea4ecb7982e767bb?action=collection%2Fimport)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/897d8f47ac6dbb691fe9?action=collection%2Fimport)

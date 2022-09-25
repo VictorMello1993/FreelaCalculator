@@ -91,6 +91,6 @@ npm run dev
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=freela-calculator-api&uri=https%3A%2F%2Fgist.githubusercontent.com%2FVictorMello1993%2Ff46baf3530e5dedb37e2df4b637b1e4b%2Fraw%2F21f5fe1cc672bbce17e5eae1aa87d5470293bc17%2FInsomnia_2022-09-25.json)
 
 ### Postman
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2234592b0122e1987499?action=collection%2Fimport)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/897d8f47ac6dbb691fe9?action=collection%2Fimport)
 
 

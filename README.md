@@ -38,6 +38,7 @@ Dashboard de projetos freelancer, contando com uma calculadora de horas trabalha
 - [x] Criação de middlewares de erros
 - [x] Criação de middlewares para validação de DTOs
 - [x] Criação de DTOs como modelo de saída em vez de utilizar entidades nos controllers
+- [x] Persistência de dados com MongoDB
 
 
 ## Executando o projeto
@@ -66,6 +67,27 @@ yarn dev
 npm run dev
 ```
 
+## Variáveis de ambiente
+
+Criar as seguintes variáveis de ambiente na raíz do projeto:
+```sh
+PORT=porta_api
+API_URL=url_api
+SECRET_KEY=sua_chave_secreta
+MONGO_DB_USER=seu_usuario
+MONGO_DB_PASSWORD=sua_senha
+MONGO_DB_DATABASE=nome_base_dados
+MONGO_DB_PORT_LOCAL=porta_comunicacao_local_container_docker (ex: 27019)
+MONGO_DB_URL=string_conexao_mongodb (ex: mongodb://localhost:<sua_porta_local>/?authMechanism=DEFAULT)
+```
+
+As variáveis do MongoDB são executadas em um container da imagem Docker do MongoDB. Para isso, com arquivo ``docker-compose`` disponível na raíz do projeto, basta executar o comando abaixo:
+```sh
+docker-compose up -d
+```
+
+Após isso, utilize um software cliente de banco de dados que permita a conexão com MongoDB e preencha as credenciais necessárias de acordo com as variáveis de ambiente citadas acima.
+
 ## Bibliotecas utilizadas
 * <a href="https://nodejs.org/en/">Node.js</a>
 * <a href="https://www.npmjs.com/package/ts-node-dev">ts-node-dev</a>
@@ -81,14 +103,15 @@ npm run dev
 * <a href="https://www.npmjs.com/package/class-validator">class-validator</a>
 * <a href="https://www.npmjs.com/package/class-transformer">class-transformer</a>
 * <a href="https://www.npmjs.com/package/reflect-metadata">reflect-metadata</a>
-* <a href="https://www.npmjs.com/package/axios">Axios</a>
+* <a href="https://www.npmjs.com/package/viacep">viacep</a>
+* <a href="https://mongoosejs.com/">Mongoose</a>
 
 ## Endpoints para importar
 
 ### Insomnia
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Freela%20Calculator%20API&uri=https%3A%2F%2Fgist.githubusercontent.com%2FVictorMello1993%2Febcf8e061184c1001ece1e5cd82504f2%2Fraw%2F6949b3430fe417e767bd736920b9873bd798a8c5%2FInsomnia_2022-08-28.json)
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=freela-calculator-api&uri=https%3A%2F%2Fgist.githubusercontent.com%2FVictorMello1993%2Ff46baf3530e5dedb37e2df4b637b1e4b%2Fraw%2F21f5fe1cc672bbce17e5eae1aa87d5470293bc17%2FInsomnia_2022-09-25.json)
 
 ### Postman
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/bda7ea4ecb7982e767bb?action=collection%2Fimport)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/897d8f47ac6dbb691fe9?action=collection%2Fimport)
 
 

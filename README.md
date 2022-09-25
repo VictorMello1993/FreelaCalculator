@@ -81,6 +81,7 @@ npm run dev
 * <a href="https://www.npmjs.com/package/class-validator">class-validator</a>
 * <a href="https://www.npmjs.com/package/class-transformer">class-transformer</a>
 * <a href="https://www.npmjs.com/package/reflect-metadata">reflect-metadata</a>
+* <a href="https://www.npmjs.com/package/viacep">viacep</a>
 
 ## Endpoints para importar
 
@@ -89,5 +90,3 @@ npm run dev
 
 ### Postman
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/bda7ea4ecb7982e767bb?action=collection%2Fimport)
-
-

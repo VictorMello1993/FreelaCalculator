@@ -71,39 +71,13 @@ export class UsersRepositoryMongo implements IUsersRepository {
   }
 
   async findById(id: string): Promise<User> {
-    const result = await this._userDbModel.find();
-
-    if (result.length > 0) {
-      const user = result.find((item) => item.id === id);
-
-      return user
-        ? User.build(
-          user.id,
-          user.name,
-          user.email,
-          user.password,
-          user.BirthDate,
-          user.CreatedAt,
-          user.UpdatedAt,
-          user.MonthlyBudget,
-          user.ZipCode,
-          user.VacationPerYear,
-          user.DaysPerWeek,
-          user.HoursPerDay,
-          user.ValueHour,
-          user.active,
-          user.JobList,
-        )
-        : null;
-    }
-
-    return null;
+    return await this._userDbModel.findOne({ _id: id });
   }
 
   async update(model: UpdateUserInputModel): Promise<User> {
-    const where = { _id: model.id };
+    const doc = this._userDbModel.findOne({ _id: model.id });
 
-    await this._userDbModel.updateOne(where, model.data);
+    await doc.updateOne(model.data);
 
     const { name, email, MonthlyBudget, VacationPerYear, DaysPerWeek, HoursPerDay, ValueHour, UpdatedAt, ZipCode } =
       model.data;
@@ -127,9 +101,9 @@ export class UsersRepositoryMongo implements IUsersRepository {
   }
 
   async inactivateUser(id: string): Promise<void> {
-    const where = { id };
+    const doc = this._userDbModel.findOne({ _id: id });
 
-    await this._userDbModel.updateOne(where, { active: false });
+    await doc.updateOne({ active: false });
   }
 
   async saveJobItem(id: string, job: Job): Promise<void> {

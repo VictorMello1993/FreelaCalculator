@@ -38,7 +38,7 @@ Dashboard de projetos freelancer, contando com uma calculadora de horas trabalha
 - [x] Criação de middlewares de erros
 - [x] Criação de middlewares para validação de DTOs
 - [x] Criação de DTOs como modelo de saída em vez de utilizar entidades nos controllers
-- [x] Persistências de dados com MongoDB
+- [x] Persistência de dados com MongoDB
 
 
 ## Executando o projeto
@@ -66,6 +66,27 @@ yarn dev
 #npm
 npm run dev
 ```
+
+## Variáveis de ambiente
+
+Criar as seguintes variáveis de ambiente na raíz do projeto:
+```sh
+PORT=porta_api
+API_URL=url_api
+SECRET_KEY=sua_chave_secreta
+MONGO_DB_USER=seu_usuario
+MONGO_DB_PASSWORD=sua_senha
+MONGO_DB_DATABASE=nome_base_dados
+MONGO_DB_PORT_LOCAL=porta_comunicacao_local_container_docker (ex: 27019)
+MONGO_DB_URL=string_conexao_mongodb (ex: mongodb://localhost:<sua_porta_local>/?authMechanism=DEFAULT)
+```
+
+As variáveis do MongoDB são executadas em um container da imagem Docker do MongoDB. Para isso, com arquivo ``docker-compose`` disponível na raíz do projeto, basta executar o comando abaixo:
+```sh
+docker-compose up -d
+```
+
+Após isso, utilize um software cliente de banco de dados que permita a conexão com MongoDB e preencha as credenciais necessárias de acordo com as variáveis de ambiente citadas acima.
 
 ## Bibliotecas utilizadas
 * <a href="https://nodejs.org/en/">Node.js</a>

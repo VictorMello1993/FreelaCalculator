@@ -84,7 +84,7 @@ export class JobsController extends BaseHttpController implements interfaces.Con
     EnsureAuthenticatedDTOMiddleware(AuthRequestDTO.Headers, "headers"),
     ValidateDTOMiddleware(DeleteJobRequestDTO.Params, "params"),
   )
-  delete(@requestParam("id") params: string) {
-    this._deleteJobUseCase.execute(params);
+  async delete(@requestParam("id") params: string) {
+    await this._deleteJobUseCase.execute(params);
   }
 }

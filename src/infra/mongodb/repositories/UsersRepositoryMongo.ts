@@ -101,7 +101,7 @@ export class UsersRepositoryMongo implements IUsersRepository {
   }
 
   async update(model: UpdateUserInputModel): Promise<User> {
-    const where = { id: model.id };
+    const where = { _id: model.id };
 
     await this._userDbModel.updateOne(where, model.data);
 
@@ -133,14 +133,25 @@ export class UsersRepositoryMongo implements IUsersRepository {
   }
 
   async saveJobItem(id: string, job: Job): Promise<void> {
-    const where = { id };
+    const userDoc = await this._userDbModel.findOne({ _id: id });
+    const index = userDoc.JobList.findIndex((item) => item.id.toString() === job.id);
 
-    await this._userDbModel.updateOne(where, { JobList: job });
+    if (index === -1) {
+      userDoc.JobList.push(job);
+    } else {
+      userDoc.JobList[index] = job;
+    }
+
+    await userDoc.updateOne({ JobList: userDoc.JobList });
   }
 
   async deleteJobItem(id: string, job: Job): Promise<void> {
-    const where = { id };
+    const userDoc = await this._userDbModel.findOne({ _id: id });
+    const index = userDoc.JobList.findIndex((item) => item.id.toString() === job.id);
 
-    await this._userDbModel.deleteOne(where, { JobLIst: job });
+    if (index !== -1) {
+      userDoc.JobList.splice(index, 1);
+      await userDoc.updateOne({ JobList: userDoc.JobList });
+    }
   }
 }

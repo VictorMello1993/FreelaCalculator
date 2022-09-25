@@ -23,7 +23,7 @@ export interface IUserDbModel {
       TotalHours: number;
       CreatedAt: Date;
       UpdatedAt: Date;
-      UserId: string;
+      UserId: any;
     },
   ];
 }
@@ -44,12 +44,14 @@ const UsersSchema = new mongoose.Schema<IUserDbModel>({
   active: { type: Boolean, default: true },
   JobList: [
     {
+      _id: { type: Schema.Types.ObjectId, required: true, ref: "jobs" },
+      id: { type: Schema.Types.ObjectId, required: true },
       name: { type: String, required: true },
       DailyHours: { type: Number, required: true },
       TotalHours: { type: Number, required: true },
       CreatedAt: { type: Date, required: Date.now },
       UpdatedAt: { type: Date, required: true, default: null },
-      UserId: { type: String, required: true },
+      UserId: { type: Schema.Types.ObjectId, required: true },
     },
   ],
 });

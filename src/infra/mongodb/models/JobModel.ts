@@ -1,4 +1,4 @@
-import mongoose, { Model, model } from "mongoose";
+import mongoose, { Model, model, Schema } from "mongoose";
 
 export interface IJobDbModel {
   id: string;
@@ -7,7 +7,7 @@ export interface IJobDbModel {
   TotalHours: number;
   CreatedAt: Date;
   UpdatedAt: Date;
-  UserId: string;
+  UserId: any;
 }
 
 const JobSchema = new mongoose.Schema<IJobDbModel>({
@@ -16,7 +16,7 @@ const JobSchema = new mongoose.Schema<IJobDbModel>({
   TotalHours: { type: Number, required: true },
   CreatedAt: { type: Date, default: Date.now },
   UpdatedAt: { type: Date, default: null },
-  UserId: { type: String, required: true },
+  UserId: { type: Schema.Types.ObjectId, required: true },
 });
 
 export const JobDbModel: Model<IJobDbModel> = model("jobs", JobSchema);

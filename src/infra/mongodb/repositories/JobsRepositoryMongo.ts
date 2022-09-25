@@ -28,13 +28,22 @@ export class JobsRepositoryMongo implements IJobsRepository {
   }
 
   async findById(id: string): Promise<Job> {
-    return await this._jobDbModel.findOne({ id });
+    const result = await this._jobDbModel.find();
+
+    if (result.length > 0) {
+      const job = result.find((item) => item.id === id);
+
+      return job;
+    }
+
+    return null;
   }
 
   async update({ id, name, DailyHours, TotalHours, CreatedAt, UserId }: EditJobInputModel): Promise<Job> {
-    const where = { id };
+    const doc = await this._jobDbModel.findOne({ _id: id });
 
     const dataToUpdate = {
+      id,
       name,
       DailyHours,
       TotalHours,
@@ -43,7 +52,7 @@ export class JobsRepositoryMongo implements IJobsRepository {
       UpdatedAt: new Date(),
     };
 
-    await this._jobDbModel.updateOne(where, dataToUpdate);
+    await doc.updateOne(dataToUpdate);
 
     return Job.build(id, name, DailyHours, TotalHours, CreatedAt, dataToUpdate.UpdatedAt, UserId);
   }
@@ -53,8 +62,10 @@ export class JobsRepositoryMongo implements IJobsRepository {
   }
 
   async delete(id: string): Promise<void> {
+    const doc = await this._jobDbModel.findOne({ _id: id });
+
     const where = { id };
 
-    await this._jobDbModel.deleteOne(where);
+    await doc.deleteOne(where);
   }
 }
